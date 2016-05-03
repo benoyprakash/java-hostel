@@ -14,7 +14,7 @@ public class HomeServiceImpl implements HomeService {
 	@Override
 	public ModelAndView homePage(HttpServletRequest request) {
 
-		return new ModelAndView(HOME_VIEW);
+		return new ModelAndView("/WEB-INF/jsp/" + HOME_VIEW);
 	}
 
 }

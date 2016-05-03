@@ -1,7 +1,5 @@
 package com.hostel.controller;
 
-import static com.hostel.utils.ViewConstants.HOME_VIEW;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +10,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hostel.service.HomeService;
 
+/**
+ * @author Benoy
+ *
+ */
 @Controller
 public class HomeController {
 
 	@Autowired
 	@Qualifier(value = "homeService")
 	private HomeService homeService;
-	
-	@RequestMapping(value = {"/", "/home"})
+
+	@RequestMapping(value = { "/", "/home" })
 	public ModelAndView homePage(HttpServletRequest request) {
 
 		return homeService.homePage(request);
