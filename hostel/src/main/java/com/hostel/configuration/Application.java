@@ -2,18 +2,21 @@ package com.hostel.configuration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * 
  *
  */
+//@EnableWebMvc
 @EnableAutoConfiguration
 @ComponentScan(basePackages = { "com.hostel.configuration", 
 		"com.hostel.controller", 
 		"com.hostel.service",
 		"com.hostel.entity"})
-public class Application {
+public class Application extends WebMvcAutoConfiguration{
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
 	}
