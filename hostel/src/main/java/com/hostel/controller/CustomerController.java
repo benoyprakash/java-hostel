@@ -17,8 +17,13 @@ public class CustomerController {
 	@Qualifier(value = "customerServiceImpl")
 	private CustomerService customerService;
 
-	@RequestMapping(value = { "/customers/getCustomer" })
-	public CustomerInfo homePage(HttpServletRequest request) {
+	@RequestMapping(value = { "/customers/customer" })
+	public CustomerInfo getCustomer(HttpServletRequest request) {
+		return customerService.getCustomer(1L);
+	}
+	
+	@RequestMapping(value = { "/customers/save" })
+	public CustomerInfo saveCustomer(HttpServletRequest request) {
 		return customerService.getCustomer(1L);
 	}
 }

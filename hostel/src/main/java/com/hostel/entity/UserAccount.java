@@ -1,39 +1,67 @@
-package com.hostel.info;
+package com.hostel.entity;
 
-public class CustomerInfo {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "user_account")
+public class UserAccount {
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column(name = "user_type", length = 1)
 	private int userType;
-
+	
+	@Column(name = "user_name")
 	private String userName;
 
+	@Column(name = "password")
 	private String password;
 
+	@Column(name = "first_name")
 	private String firstName;
 
+	@Column(name = "last_name")
 	private String lastName;
 
+	@Column(name = "phone")
 	private String phone;
 
+	@Column(name = "mobile1")
 	private String mobile1;
 
+	@Column(name = "mobile2")
 	private String mobile2;
 
+	@Column(name = "email")
 	private String email;
 
+	@Column(name = "add1")
 	private String addressLine1;
 
+	@Column(name = "add2")
 	private String addressLine2;
 
+	@Column(name = "add3")
 	private String addressLine3;
 
+	@Column(name = "city")
 	private String city;
 
+	@Column(name = "state")
 	private String state;
 
+	@Column(name = "country")
 	private String country;
 
+	@Column(name = "pin")
 	private String pinCode;
 
 	public Long getId() {
@@ -171,5 +199,4 @@ public class CustomerInfo {
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
-
 }
