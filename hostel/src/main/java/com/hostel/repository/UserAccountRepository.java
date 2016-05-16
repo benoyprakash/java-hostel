@@ -1,12 +1,11 @@
 package com.hostel.repository;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.hostel.entity.UserAccount;
 
-@Transactional
+@Repository
 public interface UserAccountRepository extends CrudRepository<UserAccount, Long> {
 
 	public UserAccount findByEmail(String email);

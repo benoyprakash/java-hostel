@@ -9,7 +9,7 @@ import com.hostel.entity.UserAccount;
 import com.hostel.info.CustomerInfo;
 import com.hostel.repository.UserAccountRepository;
 
-@Service(value = "customerServiceImpl")
+@Service(value = "customerService")
 public class CustomerService {
 
 	@Autowired

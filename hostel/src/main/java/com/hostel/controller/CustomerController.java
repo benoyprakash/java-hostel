@@ -14,7 +14,7 @@ import com.hostel.service.CustomerService;
 public class CustomerController {
 
 	@Autowired
-	@Qualifier(value = "customerServiceImpl")
+	@Qualifier(value = "customerService")
 	private CustomerService customerService;
 
 	@RequestMapping(value = { "/customers/customer" })
