@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.hostel.entity.UserAccount;
 import com.hostel.info.CustomerInfo;
 import com.hostel.repository.UserAccountRepository;
+import static com.hostel.utils.Constants.USER_TYPE_ACTIVE;
+import static com.hostel.utils.Constants.USER_TYPE_INACTIVE;
+
 
 @Service(value = "customerService")
 public class CustomerService {
@@ -16,7 +19,7 @@ public class CustomerService {
 	private UserAccountRepository userAccountRepository;
 
 	public CustomerInfo getCustomer(Long id) {
-		UserAccount customer = userAccountRepository.findByUserTypeAndEmail(0, "b@b.com");
+		UserAccount customer = userAccountRepository.findByUserTypeAndEmail(USER_TYPE_ACTIVE, "b@b.com");
 		return buildCustomerInfo(customer);
 	}
 	
@@ -31,7 +34,7 @@ public class CustomerService {
 	}
 
 	public List<CustomerInfo> getAllCustomerInfo() {
-		// TODO Auto-generated method stub
+		List<UserAccount> users = userAccountRepository.findByUserType(USER_TYPE_ACTIVE);
 		return null;
 	}
 	

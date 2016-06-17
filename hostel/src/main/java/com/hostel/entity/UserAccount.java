@@ -11,15 +11,17 @@ import javax.persistence.Table;
 @Table(name = "user_account")
 public class UserAccount {
 
+	/*pk column*/
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	/*type of the user, active or inactive*/
 	@Column(name = "user_type", length = 1)
 	private int userType;
 	
-	@Column(name = "user_name")
+	@Column(name = "user_name",unique = true)
 	private String userName;
 
 	@Column(name = "password")
