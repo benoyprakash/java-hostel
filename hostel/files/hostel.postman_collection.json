@@ -1,0 +1,48 @@
+{
+	"variables": [],
+	"info": {
+		"name": "hostel",
+		"_postman_id": "b89e429b-75d3-0699-4503-def8a57170f2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": "tests[\"response code is 200\"] = responseCode.code === 200;\n\ntry {\n    var data = JSON.parse(responseBody);\n    tests[\"Body contains deflated\"] = responseBody.has(\"deflated\");\n    tests[\"Body contains headers\"] = responseBody.has(\"headers\");\n    tests[\"Body contains method\"] = responseBody.has(\"method\");\n}\ncatch(e) {\n    console.log('Cannot parse response,probably not a JSON');\n}\n"
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:1234/innfancy-hostel/customers/customer?userId=1",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "saveCustomer",
+			"request": {
+				"url": "http://localhost:1234/innfancy-hostel/customers/save",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
