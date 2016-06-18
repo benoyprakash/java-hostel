@@ -12,10 +12,12 @@ public interface UserAccountRepository extends CrudRepository<UserAccount, Long>
 
 	public UserAccount findByEmail(String email);
 
-	public UserAccount findByUserTypeAndUserName(Integer userType, String userName);
+	public UserAccount findById(Long id);
 
-	public UserAccount findByUserTypeAndEmail(Integer userType, String email);
+	public UserAccount findByUserStatusAndUserName(int userStatus, String userName);
 
-	public List<UserAccount> findByUserType(Integer userType);
+	public UserAccount findByUserStatusAndEmail(int userStatus, String email);
+
+	public List<UserAccount> findByUserStatus(int userStatus);
 
 }

@@ -15,6 +15,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.hostel.service.impl.UserAccountServiceimpl;
+
 @Configuration
 public class ApplicationConfiguration {
 
@@ -74,5 +76,10 @@ public class ApplicationConfiguration {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
+	}
+	
+	@Bean
+	public UserAccountServiceimpl userAccountServiceimpl(){
+		return new UserAccountServiceimpl();
 	}
 }
