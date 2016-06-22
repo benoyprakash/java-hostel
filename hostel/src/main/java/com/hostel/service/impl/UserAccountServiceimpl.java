@@ -31,9 +31,9 @@ public class UserAccountServiceimpl implements UserAccountService {
 
 	private void buildCustomerInfo(CustomerInfo customer, UserAccount user) {
 
-		customer.setAddressLine1(user.getAddressLine1());
-		customer.setAddressLine2(user.getAddressLine2());
-		customer.setAddressLine3(user.getAddressLine3());
+		customer.setAddressLine1(user.getAdd1());
+		customer.setAddressLine2(user.getAdd2());
+		customer.setAddressLine3(user.getAdd3());
 		customer.setCity(user.getCity());
 		customer.setCountry(user.getCountry());
 		customer.setEmail(user.getEmail());
@@ -44,16 +44,16 @@ public class UserAccountServiceimpl implements UserAccountService {
 		customer.setMobile2(user.getMobile2());
 		customer.setPassword(user.getPassword());
 		customer.setPhone(user.getPhone());
-		customer.setPinCode(user.getPinCode());
+		customer.setPinCode(user.getPin());
 		customer.setState(user.getState());
 		customer.setUserName(user.getUserName());
 		customer.setUserStatus(user.getUserStatus());
 	}
 
 	private void buildUserAccount(UserAccount user, CustomerInfo customer) {
-		user.setAddressLine1(customer.getAddressLine1());
-		user.setAddressLine2(customer.getAddressLine2());
-		user.setAddressLine3(customer.getAddressLine3());
+		user.setAdd1(customer.getAddressLine1());
+		user.setAdd2(customer.getAddressLine2());
+		user.setAdd3(customer.getAddressLine3());
 		user.setCity(customer.getCity());
 		user.setCountry(customer.getCountry());
 		user.setEmail(customer.getEmail());
@@ -64,7 +64,7 @@ public class UserAccountServiceimpl implements UserAccountService {
 		user.setMobile2(customer.getMobile2());
 		user.setPassword(customer.getPassword());
 		user.setPhone(customer.getPhone());
-		user.setPinCode(customer.getPinCode());
+		user.setPin(customer.getPinCode());
 		user.setState(customer.getState());
 		user.setUserName(customer.getUserName());
 		user.setUserStatus(customer.getUserStatus());
