@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "roomName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "floor",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "building",
+            "fieldType": "String"
+        }
+    ],
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "room",
+    "pagination": "pagination"
+}
