@@ -48,7 +48,7 @@
         })
         .state('location-detail', {
             parent: 'location',
-            url: '/location/{clientId}/{id}',
+            url: '/location/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Location'
@@ -62,7 +62,7 @@
             },
             resolve: {
                 entity: ['$stateParams', 'Location', function($stateParams, Location) {
-                    return Location.locationByClient({client: 'client', clientId: $stateParams.clientId, id : $stateParams.id}).$promise;
+                    return Location.locationByClient({clientId: $stateParams.clientId, id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
@@ -76,7 +76,7 @@
         })
         .state('location-detail.edit', {
             parent: 'location-detail',
-            url: '/detail/edit/{clientId}/{id}',
+            url: '/detail/edit/{id}',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -120,7 +120,6 @@
                                 state: null,
                                 district: null,
                                 locality: null,
-                                client: null,
                                 id: null
                             };
                         }
@@ -134,7 +133,7 @@
         })
         .state('location.edit', {
             parent: 'location',
-            url: '/{clientId}/{id}/edit',
+            url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -147,7 +146,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['Location', function(Location) {
-                            return Location.get({client: 'client', clientId: $stateParams.clientId, id : $stateParams.id}).$promise;
+                            return Location.get({clientId: $stateParams.clientId, id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -159,7 +158,7 @@
         })
         .state('location.delete', {
             parent: 'location',
-            url: '/{clientId}/{id}/delete',
+            url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
@@ -171,7 +170,7 @@
                     size: 'md',
                     resolve: {
                         entity: ['Location', function(Location) {
-                            return Location.get({client: 'client', clientId: $stateParams.clientId, id : $stateParams.id}).$promise;
+                            return Location.get({clientId: $stateParams.clientId, id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {

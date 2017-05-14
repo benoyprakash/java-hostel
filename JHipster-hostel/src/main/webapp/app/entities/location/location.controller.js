@@ -5,9 +5,13 @@
         .module('hostelApp')
         .controller('LocationController', LocationController);
 
-    LocationController.$inject = ['$state', 'DataUtils', 'Location', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    LocationController.$inject = ['$state', 'DataUtils', 'Location', 'ParseLinks', 'AlertService', 'paginationConstants'
+    , 'pagingParams', '$localStorage', '$scope'];
 
-    function LocationController($state, DataUtils, Location, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function LocationController($state, DataUtils, Location, ParseLinks, AlertService, paginationConstants, pagingParams
+    , $localStorage, $scope) {
+
+        $scope.clientData = $localStorage.data.clientData;
 
         var vm = this;
 
@@ -22,30 +26,35 @@
         loadAll();
 
         function loadAll () {
-            Location.query({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort(),
-                client:'client',
-                clientId:'5907058b20e5950edccd3c11'
 
-            }, onSuccess, onError);
-            function sort() {
-                var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
-                if (vm.predicate !== 'id') {
-                    result.push('id');
+            if($scope.clientData ==null || ($scope.clientData.client ==null  && $scope.clientData.client ==null  && $scope.clientData.client ==null)){
+                AlertService.error("Select the Client, Location and Building");
+            } else{
+                Location.query({
+                    page: pagingParams.page - 1,
+                    size: vm.itemsPerPage,
+                    sort: sort(),
+                    id:$scope.clientData.client.id,
+                    clients: 'clients'
+
+                }, onSuccess, onError);
+                function sort() {
+                    var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
+                    if (vm.predicate !== 'id') {
+                        result.push('id');
+                    }
+                    return result;
                 }
-                return result;
-            }
-            function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.locations = data;
-                vm.page = pagingParams.page;
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
+                function onSuccess(data, headers) {
+                    vm.links = ParseLinks.parse(headers('link'));
+                    vm.totalItems = headers('X-Total-Count');
+                    vm.queryCount = vm.totalItems;
+                    vm.locations = data;
+                    vm.page = pagingParams.page;
+                }
+                function onError(error) {
+                    AlertService.error(error.data.message);
+                }
             }
         }
 

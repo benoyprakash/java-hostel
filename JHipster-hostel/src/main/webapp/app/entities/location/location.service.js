@@ -8,8 +8,8 @@
 
         function Location ($resource) {
 
-                var resourceUrl =  'api/locations/:client/:clientId/:id';
-                return $resource(resourceUrl, {client:'@client', clientId: '@clientId', id: '@id'}, {
+                var resourceUrl =  'api/locations/:clients/:id';
+                return $resource(resourceUrl, {clients: '@clients', id: '@id'}, {
                     'query': { method: 'GET', isArray: true},
                     'get': {
                         method: 'GET',

@@ -73,8 +73,8 @@
                     if($scope.selectedClient){
                         $scope.clientData.client = $scope.selectedClient;
                         Location.query({
-                            client:'client',
-                            clientId: $scope.selectedClient.id
+                                clients: 'clients',
+                                id: $scope.selectedClient.id
                             })
                             .$promise.then(function(locations){
                                 vm.locations = locations;
@@ -101,10 +101,6 @@
                         $scope.clientData.building = $scope.selectedBuilding;
 
                         $localStorage.data.clientData = $scope.clientData;
-                        setTimeout(function(){
-                        console.log($localStorage.data.clientData);
-                       }, 10000);
-
                     }
                 }
     }

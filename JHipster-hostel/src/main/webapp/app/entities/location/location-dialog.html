@@ -8,6 +8,11 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="control-label" for="field_client">Client</label>
+            <input class="form-control" name="client" id="field_client" disabled
+                   ng-value="vm.location.client.clientName"/>
+        </div>
         <div class="form-group" ng-show="vm.location.id">
             <label for="id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
@@ -72,11 +77,6 @@
                     This field is required.
                 </p>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="field_client">Client</label>
-                <textarea class="form-control" name="client" id="field_client"
-                    ng-model="vm.location.client" ></textarea>
         </div>
 
     </div>

@@ -70,16 +70,17 @@ public class LocationResource {
      * or with status 500 (Internal Server Error) if the locationDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/locations")
+    @PutMapping("/locations/{id}")
     @Timed
-    public ResponseEntity<LocationDTO> updateLocation(@Valid @RequestBody LocationDTO locationDTO) throws URISyntaxException {
+    public ResponseEntity<LocationDTO> updateLocation(@Valid @RequestBody LocationDTO locationDTO,
+                                                      @PathVariable String id) throws URISyntaxException {
         log.debug("REST request to update Location : {}", locationDTO);
         if (locationDTO.getId() == null) {
             return createLocation(locationDTO);
         }
         LocationDTO result = locationService.save(locationDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, locationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, locationDTO.getLocationName()))
             .body(result);
     }
 
@@ -89,21 +90,13 @@ public class LocationResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of locations in body
      */
-    @GetMapping("/locations/client/{clientId}")
+    @GetMapping("/locations/clients/{clientId}")
     @Timed
     public ResponseEntity<List<LocationDTO>> getAllLocationsByClient(@ApiParam Pageable pageable, @PathVariable String clientId) {
         log.debug("REST request to get a page of Locations");
         Page<LocationDTO> page = locationService.findAll(pageable, clientId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/locations");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-    @GetMapping("/locations/client/{clientId}/{locationId}")
-    @Timed
-    public ResponseEntity<LocationDTO> getLocationByClient(@PathVariable String clientId, @PathVariable String locationId) {
-        log.debug("REST request to get a page of Locations");
-        LocationDTO resp = locationService.findLocation(clientId, locationId);
-        return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
     /**
