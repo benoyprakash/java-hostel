@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span>Room Allocation</span> {{vm.roomAllocation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Room Id</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.roomId}}</span>
+        </dd>
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.userId}}</span>
+        </dd>
+        <dt><span>From Date</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.fromDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>To Date</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.toDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Curr Status</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.currStatus}}</span>
+        </dd>
+        <dt><span>Updated By</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.updatedBy}}</span>
+        </dd>
+        <dt><span>Updated Date Time</span></dt>
+        <dd>
+            <span>{{vm.roomAllocation.updatedDateTime | date:'mediumDate'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="room-allocation-detail.edit({id:vm.roomAllocation.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

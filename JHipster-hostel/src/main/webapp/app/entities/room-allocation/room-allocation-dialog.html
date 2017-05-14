@@ -1,0 +1,106 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRoomAllocationLabel">Create or edit a Room Allocation</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.roomAllocation.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.roomAllocation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_roomId">Room Id</label>
+            <input type="text" class="form-control" name="roomId" id="field_roomId"
+                    ng-model="vm.roomAllocation.roomId"
+                    required/>
+            <div ng-show="editForm.roomId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.roomId.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_userId">User Id</label>
+            <input type="text" class="form-control" name="userId" id="field_userId"
+                    ng-model="vm.roomAllocation.userId"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_fromDate">From Date</label>
+                <div class="input-group">
+                    <input id="field_fromDate" type="text" class="form-control" name="fromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.roomAllocation.fromDate" is-open="vm.datePickerOpenStatus.fromDate"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('fromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.fromDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.fromDate.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_toDate">To Date</label>
+                <div class="input-group">
+                    <input id="field_toDate" type="text" class="form-control" name="toDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.roomAllocation.toDate" is-open="vm.datePickerOpenStatus.toDate"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('toDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.toDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.toDate.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_currStatus">Curr Status</label>
+            <select class="form-control" name="currStatus" ng-model="vm.roomAllocation.currStatus" id="field_currStatus" required>
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INACTIVE">INACTIVE</option>
+                <option value="DELETED">DELETED</option>
+            </select>
+            <div ng-show="editForm.currStatus.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.currStatus.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_updatedBy">Updated By</label>
+            <input type="text" class="form-control" name="updatedBy" id="field_updatedBy"
+                    ng-model="vm.roomAllocation.updatedBy"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_updatedDateTime">Updated Date Time</label>
+                <div class="input-group">
+                    <input id="field_updatedDateTime" type="text" class="form-control" name="updatedDateTime" uib-datepicker-popup="{{dateformat}}" ng-model="vm.roomAllocation.updatedDateTime" is-open="vm.datePickerOpenStatus.updatedDateTime"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

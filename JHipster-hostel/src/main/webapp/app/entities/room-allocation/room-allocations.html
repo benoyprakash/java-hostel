@@ -1,0 +1,72 @@
+<div>
+    <h2>Room Allocations</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="room-allocation.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Room Allocation
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="roomId"><span>Room Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userId"><span>User Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fromDate"><span>From Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="toDate"><span>To Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="currStatus"><span>Curr Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedBy"><span>Updated By</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updatedDateTime"><span>Updated Date Time</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="roomAllocation in vm.roomAllocations track by roomAllocation.id">
+                    <td><a ui-sref="room-allocation-detail({id:roomAllocation.id})">{{roomAllocation.id}}</a></td>
+                    <td>{{roomAllocation.roomId}}</td>
+                    <td>{{roomAllocation.userId}}</td>
+                        <td>{{roomAllocation.fromDate | date:'mediumDate'}}</td>
+                        <td>{{roomAllocation.toDate | date:'mediumDate'}}</td>
+                    <td>{{roomAllocation.currStatus}}</td>
+                    <td>{{roomAllocation.updatedBy}}</td>
+                        <td>{{roomAllocation.updatedDateTime | date:'mediumDate'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="room-allocation-detail({id:roomAllocation.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="room-allocation.edit({id:roomAllocation.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="room-allocation.delete({id:roomAllocation.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>
