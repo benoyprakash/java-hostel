@@ -20,7 +20,7 @@ public interface BuildingService {
 
     /**
      *  Get all the buildings.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,6 @@ public interface BuildingService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    Page<BuildingDTO> findAllBuildingByLocation(Pageable pageable, String locationId);
 }

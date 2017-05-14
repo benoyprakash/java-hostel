@@ -33,7 +33,7 @@ public class RoomResource {
     private final Logger log = LoggerFactory.getLogger(RoomResource.class);
 
     private static final String ENTITY_NAME = "room";
-        
+
     private final RoomService roomService;
 
     public RoomResource(RoomService roomService) {
@@ -56,7 +56,7 @@ public class RoomResource {
         }
         RoomDTO result = roomService.save(roomDTO);
         return ResponseEntity.created(new URI("/api/rooms/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getRoomName()))
             .body(result);
     }
 
@@ -69,16 +69,16 @@ public class RoomResource {
      * or with status 500 (Internal Server Error) if the roomDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/rooms")
+    @PutMapping("/rooms/{roomId}")
     @Timed
-    public ResponseEntity<RoomDTO> updateRoom(@RequestBody RoomDTO roomDTO) throws URISyntaxException {
+    public ResponseEntity<RoomDTO> updateRoom(@RequestBody RoomDTO roomDTO, @PathVariable String roomId) throws URISyntaxException {
         log.debug("REST request to update Room : {}", roomDTO);
         if (roomDTO.getId() == null) {
             return createRoom(roomDTO);
         }
         RoomDTO result = roomService.save(roomDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, roomDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, roomDTO.getRoomName()))
             .body(result);
     }
 
@@ -88,11 +88,11 @@ public class RoomResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of rooms in body
      */
-    @GetMapping("/rooms")
+    @GetMapping("/rooms/buildings/{buildingId}")
     @Timed
-    public ResponseEntity<List<RoomDTO>> getAllRooms(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<RoomDTO>> getAllRooms(@ApiParam Pageable pageable, @PathVariable String buildingId) {
         log.debug("REST request to get a page of Rooms");
-        Page<RoomDTO> page = roomService.findAll(pageable);
+        Page<RoomDTO> page = roomService.findByBuilding(pageable, buildingId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/rooms");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -122,7 +122,7 @@ public class RoomResource {
     public ResponseEntity<Void> deleteRoom(@PathVariable String id) {
         log.debug("REST request to delete Room : {}", id);
         roomService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
 }

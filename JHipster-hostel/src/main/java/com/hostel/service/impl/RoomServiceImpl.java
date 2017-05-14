@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RoomServiceImpl implements RoomService{
 
     private final Logger log = LoggerFactory.getLogger(RoomServiceImpl.class);
-    
+
     private final RoomRepository roomRepository;
 
     private final RoomMapper roomMapper;
@@ -43,13 +43,12 @@ public class RoomServiceImpl implements RoomService{
         log.debug("Request to save Room : {}", roomDTO);
         Room room = roomMapper.roomDTOToRoom(roomDTO);
         room = roomRepository.save(room);
-        RoomDTO result = roomMapper.roomToRoomDTO(room);
-        return result;
+        return roomMapper.roomToRoomDTO(room);
     }
 
     /**
      *  Get all the rooms.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -70,8 +69,7 @@ public class RoomServiceImpl implements RoomService{
     public RoomDTO findOne(String id) {
         log.debug("Request to get Room : {}", id);
         Room room = roomRepository.findOne(id);
-        RoomDTO roomDTO = roomMapper.roomToRoomDTO(room);
-        return roomDTO;
+        return roomMapper.roomToRoomDTO(room);
     }
 
     /**
@@ -83,5 +81,12 @@ public class RoomServiceImpl implements RoomService{
     public void delete(String id) {
         log.debug("Request to delete Room : {}", id);
         roomRepository.delete(id);
+    }
+
+    @Override
+    public Page<RoomDTO> findByBuilding(Pageable pageable, String buildingId) {
+        log.debug("Request to get all Rooms");
+        Page<Room> result = roomRepository.findByBuilding(pageable, buildingId);
+        return result.map(room -> roomMapper.roomToRoomDTO(room));
     }
 }

@@ -34,7 +34,7 @@ public class BuildingResource {
     private final Logger log = LoggerFactory.getLogger(BuildingResource.class);
 
     private static final String ENTITY_NAME = "building";
-        
+
     private final BuildingService buildingService;
 
     public BuildingResource(BuildingService buildingService) {
@@ -57,7 +57,7 @@ public class BuildingResource {
         }
         BuildingDTO result = buildingService.save(buildingDTO);
         return ResponseEntity.created(new URI("/api/buildings/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getName()))
             .body(result);
     }
 
@@ -70,16 +70,16 @@ public class BuildingResource {
      * or with status 500 (Internal Server Error) if the buildingDTO couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/buildings")
+    @PutMapping("/buildings/{buildingId}")
     @Timed
-    public ResponseEntity<BuildingDTO> updateBuilding(@Valid @RequestBody BuildingDTO buildingDTO) throws URISyntaxException {
+    public ResponseEntity<BuildingDTO> updateBuilding(@Valid @RequestBody BuildingDTO buildingDTO, @PathVariable String buildingId) throws URISyntaxException {
         log.debug("REST request to update Building : {}", buildingDTO);
         if (buildingDTO.getId() == null) {
             return createBuilding(buildingDTO);
         }
         BuildingDTO result = buildingService.save(buildingDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, buildingDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, buildingDTO.getName()))
             .body(result);
     }
 
@@ -89,11 +89,11 @@ public class BuildingResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of buildings in body
      */
-    @GetMapping("/buildings")
+    @GetMapping("/buildings/locations/{locationId}")
     @Timed
-    public ResponseEntity<List<BuildingDTO>> getAllBuildings(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<BuildingDTO>> getAllBuildingsByLocation(@ApiParam Pageable pageable, @PathVariable String locationId) {
         log.debug("REST request to get a page of Buildings");
-        Page<BuildingDTO> page = buildingService.findAll(pageable);
+        Page<BuildingDTO> page = buildingService.findAllBuildingByLocation(pageable, locationId);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/buildings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -123,7 +123,7 @@ public class BuildingResource {
     public ResponseEntity<Void> deleteBuilding(@PathVariable String id) {
         log.debug("REST request to delete Building : {}", id);
         buildingService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
 }

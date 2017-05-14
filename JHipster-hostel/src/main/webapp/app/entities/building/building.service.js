@@ -7,9 +7,9 @@
     Building.$inject = ['$resource'];
 
     function Building ($resource) {
-        var resourceUrl =  'api/buildings/:id';
+        var resourceUrl =  'api/buildings/:locations/:id';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {locations: '@locations', id: '@id'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

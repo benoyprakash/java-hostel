@@ -20,7 +20,7 @@ public interface RoomService {
 
     /**
      *  Get all the rooms.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -40,4 +40,6 @@ public interface RoomService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    Page<RoomDTO> findByBuilding(Pageable pageable, String buildingId);
 }

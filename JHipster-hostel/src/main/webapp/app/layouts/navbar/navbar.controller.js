@@ -88,6 +88,8 @@
                     if($scope.selectedLocation){
                     $scope.clientData.location = $scope.selectedLocation;
                         Building.query({
+                            locations: 'locations',
+                                id: $scope.selectedLocation.id
                             })
                             .$promise.then(function(buildings){
                                 vm.buildings = buildings;

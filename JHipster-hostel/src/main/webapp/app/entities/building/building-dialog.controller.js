@@ -5,12 +5,15 @@
         .module('hostelApp')
         .controller('BuildingDialogController', BuildingDialogController);
 
-    BuildingDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Building'];
+    BuildingDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Building',
+            '$localStorage'];
 
-    function BuildingDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Building) {
+    function BuildingDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Building,
+            $localStorage) {
         var vm = this;
 
         vm.building = entity;
+        vm.building.location = $localStorage.data.clientData.location;
         vm.clear = clear;
         vm.save = save;
 
@@ -25,8 +28,10 @@
         function save () {
             vm.isSaving = true;
             if (vm.building.id !== null) {
+                vm.building.location = vm.building.location.id;
                 Building.update(vm.building, onSaveSuccess, onSaveError);
             } else {
+                vm.building.location = vm.building.location.id;
                 Building.save(vm.building, onSaveSuccess, onSaveError);
             }
         }

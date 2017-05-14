@@ -5,9 +5,13 @@
         .module('hostelApp')
         .controller('BuildingController', BuildingController);
 
-    BuildingController.$inject = ['$state', 'Building', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams', '$localStorage'];
+    BuildingController.$inject = ['$state', 'Building', 'ParseLinks', 'AlertService', 'paginationConstants',
+            'pagingParams', '$localStorage', '$scope'];
 
-    function BuildingController($state, Building, ParseLinks, AlertService, paginationConstants, pagingParams, $localStorage) {
+    function BuildingController($state, Building, ParseLinks, AlertService, paginationConstants, pagingParams,
+            $localStorage, $scope) {
+
+        $scope.clientData = $localStorage.data.clientData;
 
         var vm = this;
 
@@ -20,28 +24,44 @@
         loadAll();
 
         function loadAll () {
-        console.log("BBB" + JSON.stringify($localStorage.data.clientData));
-            Building.query({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort()
-            }, onSuccess, onError);
-            function sort() {
-                var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
-                if (vm.predicate !== 'id') {
-                    result.push('id');
+
+        if($scope.clientData == null || ($scope.clientData.client ==null  && $scope.clientData.location ==null  && $scope.clientData.building ==null)){
+            AlertService.error("Select the Client, Location and Building");
+        } else{
+                Building.query({
+                    page: pagingParams.page - 1,
+                    size: vm.itemsPerPage,
+                    sort: sort(),
+                    locations: 'locations',
+                    id:$scope.clientData.location.id
+
+                }, onSuccess, onError);
+                function sort() {
+                    var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
+                    if (vm.predicate !== 'id') {
+                        result.push('id');
+                    }
+                    return result;
                 }
-                return result;
-            }
-            function onSuccess(data, headers) {
-                vm.links = ParseLinks.parse(headers('link'));
-                vm.totalItems = headers('X-Total-Count');
-                vm.queryCount = vm.totalItems;
-                vm.buildings = data;
-                vm.page = pagingParams.page;
-            }
-            function onError(error) {
-                AlertService.error(error.data.message);
+                function onSuccess(data, headers) {
+                    vm.links = ParseLinks.parse(headers('link'));
+                    vm.totalItems = headers('X-Total-Count');
+                    vm.queryCount = vm.totalItems;
+
+                    for (var key in data) {
+                        if(data[key] != null){
+                            if(data[key].location == $scope.clientData.location.id){
+                                data[key].location = $scope.clientData.location.locationName;
+                            }
+                        }
+                    }
+
+                    vm.buildings = data;
+                    vm.page = pagingParams.page;
+                }
+                function onError(error) {
+                    AlertService.error(error.data.message);
+                }
             }
         }
 

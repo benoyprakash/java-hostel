@@ -7,9 +7,9 @@
     Room.$inject = ['$resource'];
 
     function Room ($resource) {
-        var resourceUrl =  'api/rooms/:id';
+        var resourceUrl =  'api/rooms/:buildings/:id';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {buildings: '@buildings', id: '@id'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

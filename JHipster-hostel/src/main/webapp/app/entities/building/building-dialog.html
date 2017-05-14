@@ -28,8 +28,8 @@
         <div class="form-group">
             <label class="control-label" for="field_location">Location</label>
             <input type="text" class="form-control" name="location" id="field_location"
-                    ng-model="vm.building.location"
-                    required/>
+                    ng-model="vm.building.location.locationName"
+                    required disabled/>
             <div ng-show="editForm.location.$invalid">
                 <p class="help-block"
                     ng-show="editForm.location.$error.required">

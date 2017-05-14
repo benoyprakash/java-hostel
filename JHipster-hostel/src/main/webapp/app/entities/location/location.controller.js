@@ -27,7 +27,7 @@
 
         function loadAll () {
 
-            if($scope.clientData ==null || ($scope.clientData.client ==null  && $scope.clientData.client ==null  && $scope.clientData.client ==null)){
+            if($scope.clientData ==null || ($scope.clientData.client ==null  && $scope.clientData.location ==null  && $scope.clientData.building ==null)){
                 AlertService.error("Select the Client, Location and Building");
             } else{
                 Location.query({
@@ -49,6 +49,15 @@
                     vm.links = ParseLinks.parse(headers('link'));
                     vm.totalItems = headers('X-Total-Count');
                     vm.queryCount = vm.totalItems;
+
+                    for (var key in data) {
+                        if(data[key] != null){
+                            if(data[key].client == $scope.clientData.client.id){
+                                data[key].client = $scope.clientData.client.clientName;
+                            }
+                        }
+                    }
+
                     vm.locations = data;
                     vm.page = pagingParams.page;
                 }

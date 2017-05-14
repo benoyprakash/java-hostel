@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class BuildingServiceImpl implements BuildingService{
 
     private final Logger log = LoggerFactory.getLogger(BuildingServiceImpl.class);
-    
+
     private final BuildingRepository buildingRepository;
 
     private final BuildingMapper buildingMapper;
@@ -43,13 +43,12 @@ public class BuildingServiceImpl implements BuildingService{
         log.debug("Request to save Building : {}", buildingDTO);
         Building building = buildingMapper.buildingDTOToBuilding(buildingDTO);
         building = buildingRepository.save(building);
-        BuildingDTO result = buildingMapper.buildingToBuildingDTO(building);
-        return result;
+        return buildingMapper.buildingToBuildingDTO(building);
     }
 
     /**
      *  Get all the buildings.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -70,8 +69,7 @@ public class BuildingServiceImpl implements BuildingService{
     public BuildingDTO findOne(String id) {
         log.debug("Request to get Building : {}", id);
         Building building = buildingRepository.findOne(id);
-        BuildingDTO buildingDTO = buildingMapper.buildingToBuildingDTO(building);
-        return buildingDTO;
+        return buildingMapper.buildingToBuildingDTO(building);
     }
 
     /**
@@ -83,5 +81,13 @@ public class BuildingServiceImpl implements BuildingService{
     public void delete(String id) {
         log.debug("Request to delete Building : {}", id);
         buildingRepository.delete(id);
+    }
+
+
+    @Override
+    public Page<BuildingDTO> findAllBuildingByLocation(Pageable pageable, String locationId){
+        log.debug("Request to get all Buildings");
+        Page<Building> result = buildingRepository.findByLocation(pageable, locationId);
+        return result.map(building -> buildingMapper.buildingToBuildingDTO(building));
     }
 }
