@@ -5,15 +5,17 @@
         .module('hostelApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$localStorage'];
 
-    function HomeController ($scope, Principal, LoginService, $state) {
+    function HomeController ($scope, Principal, LoginService, $state, $localStorage) {
         var vm = this;
 
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
+        $scope.currentUserRoles = $localStorage.data.clientData;
+
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
@@ -23,6 +25,9 @@
         function getAccount() {
             Principal.identity().then(function(account) {
                 vm.account = account;
+                if(account){
+                    $localStorage.data.currentUserRoles = account.authorities;
+                }
                 vm.isAuthenticated = Principal.isAuthenticated;
             });
         }

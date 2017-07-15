@@ -28,5 +28,9 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
 
+    Page<User> findAllByClientId(Pageable pageable, String clientId);
+
+    Page<User> findAllByClientIdAndAuthoritiesNameIn(Pageable pageable, String clientId, String authority);
+
     User findByLogin(String login);
 }

@@ -1,5 +1,6 @@
 package com.hostel.service;
 
+import com.hostel.domain.Room;
 import com.hostel.service.dto.RoomDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,8 @@ public interface RoomService {
      *  @return the entity
      */
     RoomDTO findOne(String id);
+
+    Room findRoom(String id);
 
     /**
      *  Delete the "id" room.

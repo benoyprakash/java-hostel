@@ -9,6 +9,11 @@
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group">
+            <label class="control-label">Client</label>
+            <input type="text" class="form-control" name="clientName"
+                    ng-model="vm.clientData.client.clientName" disabled >
+        </div>
+        <div class="form-group">
             <label>ID</label>
             <input type="text" class="form-control" name="id"
                    ng-model="vm.user.id" readonly>

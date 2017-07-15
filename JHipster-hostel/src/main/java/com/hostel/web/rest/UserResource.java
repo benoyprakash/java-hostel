@@ -155,6 +155,32 @@ public class UserResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/users/clients/{clientId}")
+    @Timed
+    public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable, @PathVariable String clientId) {
+        final Page<UserDTO> page = userService.getAllManagedUsers(pageable, clientId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/users/customer/{clientId}")
+    @Timed
+    public ResponseEntity<List<UserDTO>> getAllCustomers(@ApiParam Pageable pageable, @PathVariable String clientId) {
+        final Page<UserDTO> page = userService.getAllManagedCustomers(pageable, clientId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/currentUser")
+    @Timed
+    public ResponseEntity<List<UserDTO>> getCurrentUser() {
+        UserDTO user = userService.getCurrentUser();
+        List users = new ArrayList<UserDTO>();
+        users.add(user);
+        return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+    }
+
     /**
      * GET  /users/:login : get the "login" user.
      *

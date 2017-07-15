@@ -62,7 +62,7 @@
             },
             resolve: {
                 entity: ['$stateParams', 'RoomAllocation', function($stateParams, RoomAllocation) {
-                    return RoomAllocation.get({id : $stateParams.id}).$promise;
+                    return RoomAllocation.get({param1 : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
@@ -89,7 +89,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['RoomAllocation', function(RoomAllocation) {
-                            return RoomAllocation.get({id : $stateParams.id}).$promise;
+                            return RoomAllocation.get({param1 : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -148,7 +148,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['RoomAllocation', function(RoomAllocation) {
-                            return RoomAllocation.get({id : $stateParams.id}).$promise;
+                            return RoomAllocation.get({param1 : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -172,7 +172,7 @@
                     size: 'md',
                     resolve: {
                         entity: ['RoomAllocation', function(RoomAllocation) {
-                            return RoomAllocation.get({id : $stateParams.id}).$promise;
+                            return RoomAllocation.get({param1 : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {

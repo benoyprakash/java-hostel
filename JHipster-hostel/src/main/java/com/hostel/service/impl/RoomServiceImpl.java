@@ -72,6 +72,14 @@ public class RoomServiceImpl implements RoomService{
         return roomMapper.roomToRoomDTO(room);
     }
 
+    @Override
+    public Room findRoom(String id) {
+        log.debug("Request to get Room domain : {}", id);
+        return roomRepository.findOne(id);
+    }
+
+
+
     /**
      *  Delete the  room by id.
      *

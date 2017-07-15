@@ -85,7 +85,7 @@
                     size: 'lg',
                     resolve: {
                         entity: ['User', function(User) {
-                            return User.get({login : $stateParams.login});
+                            return User.get({idx : $stateParams.login});
                         }]
                     }
                 }).result.then(function() {

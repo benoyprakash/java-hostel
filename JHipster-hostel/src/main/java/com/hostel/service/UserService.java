@@ -120,6 +120,7 @@ public class UserService {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setImageUrl(userDTO.getImageUrl());
+        user.setClientId(userDTO.getClientId());
         if (userDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language
         } else {
@@ -180,6 +181,7 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setClientId(userDTO.getClientId());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
@@ -211,6 +213,27 @@ public class UserService {
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
+
+    public Page<UserDTO> getAllManagedUsers(Pageable pageable, String clientId) {
+        System.out.println("clientId : " + clientId);
+
+        return userRepository.findAllByClientId(pageable, clientId).map(UserDTO::new);
+    }
+
+    public Page<UserDTO> getAllManagedCustomers(Pageable pageable, String clientId) {
+        System.out.println("clientId : " + clientId);
+        return userRepository.findAllByClientIdAndAuthoritiesNameIn(pageable, clientId, Constants.USER_ROLE_CUSTOMER).map(UserDTO::new);
+    }
+
+    public UserDTO getCurrentUser() {
+        Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        if(user != null){
+            return new UserDTO(user.get());
+        }
+        return null;
+    }
+
+
 
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneByLogin(login);
@@ -258,5 +281,9 @@ public class UserService {
 
     public User getUser(String userName){
         return userRepository.findByLogin(userName);
+    }
+
+    public User getUserById(String userId){
+        return userRepository.findOne(userId);
     }
 }

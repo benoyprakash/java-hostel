@@ -7,9 +7,9 @@
     RoomAllocation.$inject = ['$resource', 'DateUtils'];
 
     function RoomAllocation ($resource, DateUtils) {
-        var resourceUrl =  'api/room-allocations/:id';
+        var resourceUrl =  'api/room-allocations/:param1/:param2';
 
-        return $resource(resourceUrl, {}, {
+        return $resource(resourceUrl, {param1: '@param1', param2: '@param2'}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

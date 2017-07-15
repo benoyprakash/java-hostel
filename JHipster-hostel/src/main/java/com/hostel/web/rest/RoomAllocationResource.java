@@ -1,6 +1,7 @@
 package com.hostel.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.hostel.domain.enumeration.RoomStatus;
 import com.hostel.service.RoomAllocationService;
 import com.hostel.web.rest.util.HeaderUtil;
 import com.hostel.web.rest.util.PaginationUtil;
@@ -34,7 +35,7 @@ public class RoomAllocationResource {
     private final Logger log = LoggerFactory.getLogger(RoomAllocationResource.class);
 
     private static final String ENTITY_NAME = "roomAllocation";
-        
+
     private final RoomAllocationService roomAllocationService;
 
     public RoomAllocationResource(RoomAllocationService roomAllocationService) {
@@ -57,7 +58,7 @@ public class RoomAllocationResource {
         }
         RoomAllocationDTO result = roomAllocationService.save(roomAllocationDTO);
         return ResponseEntity.created(new URI("/api/room-allocations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -79,7 +80,7 @@ public class RoomAllocationResource {
         }
         RoomAllocationDTO result = roomAllocationService.save(roomAllocationDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, roomAllocationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, roomAllocationDTO.getId()))
             .body(result);
     }
 
@@ -89,11 +90,32 @@ public class RoomAllocationResource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of roomAllocations in body
      */
-    @GetMapping("/room-allocations")
+//    @GetMapping("/room-allocations/{buildingId}")
+//    @Timed
+//    public ResponseEntity<List<RoomAllocationDTO>> getAllRoomAllocationsByBuilding(@ApiParam Pageable pageable,
+//                               @PathVariable("buildingId") String buildingId) {
+//        log.debug("REST request to get a page of RoomAllocations");
+//        Page<RoomAllocationDTO> page = roomAllocationService.findRoomAllocationsByBuildingAndStatus(pageable, buildingId, RoomStatus.ACTIVE);
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/room-allocations");
+//        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+//    }
+
+    @GetMapping("/room-allocations/{buildingId}/{status}")
     @Timed
-    public ResponseEntity<List<RoomAllocationDTO>> getAllRoomAllocations(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<RoomAllocationDTO>> getAllRoomAllocationsByBuildingAndStatus(@ApiParam Pageable pageable,
+                                @PathVariable("buildingId") String buildingId, @PathVariable("status") String status) {
         log.debug("REST request to get a page of RoomAllocations");
-        Page<RoomAllocationDTO> page = roomAllocationService.findAll(pageable);
+        RoomStatus statusVal = null;
+        if(status != null){
+            if(status.equalsIgnoreCase(RoomStatus.ACTIVE.toString())){
+                statusVal = RoomStatus.ACTIVE;
+            } else if(status.equalsIgnoreCase(RoomStatus.INACTIVE.toString())){
+                statusVal = RoomStatus.INACTIVE;
+            } else if(status.equalsIgnoreCase(RoomStatus.DELETED.toString())){
+                statusVal = RoomStatus.DELETED;
+            }
+        }
+        Page<RoomAllocationDTO> page = roomAllocationService.findRoomAllocationsByBuildingAndStatus(pageable, buildingId, statusVal);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/room-allocations");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -123,7 +145,7 @@ public class RoomAllocationResource {
     public ResponseEntity<Void> deleteRoomAllocation(@PathVariable String id) {
         log.debug("REST request to delete RoomAllocation : {}", id);
         roomAllocationService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
 }

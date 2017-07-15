@@ -38,8 +38,12 @@
         $scope.clientData.location = null;
         $scope.clientData.building = null;
 
-        $localStorage.data = {};
-        $localStorage.data.clientData = null;
+        if($localStorage.data.clientData != null){
+            vm.selectedClient = $localStorage.data.clientData.client;
+            vm.selectedLocation = $localStorage.data.clientData.location;
+            vm.selectedBuilding = $localStorage.data.clientData.building;
+
+        }
 
         getClients();
 
@@ -72,6 +76,7 @@
                     $log.info('onClientChangeEvent');
                     if($scope.selectedClient){
                         $scope.clientData.client = $scope.selectedClient;
+                        $localStorage.data.clientData = $scope.clientData;
                         Location.query({
                                 clients: 'clients',
                                 id: $scope.selectedClient.id
@@ -87,6 +92,7 @@
                     $log.info('onLocationChangeEvent');
                     if($scope.selectedLocation){
                     $scope.clientData.location = $scope.selectedLocation;
+                    $localStorage.data.clientData = $scope.clientData;
                         Building.query({
                             locations: 'locations',
                                 id: $scope.selectedLocation.id
@@ -101,7 +107,6 @@
                     $log.info('onBuildingChangeEvent');
                     if($scope.selectedBuilding){
                         $scope.clientData.building = $scope.selectedBuilding;
-
                         $localStorage.data.clientData = $scope.clientData;
                     }
                 }

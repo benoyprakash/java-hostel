@@ -18,9 +18,9 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="roomId"><span>Room Id</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="userId"><span>User Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!-- <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th> -->
+                    <th jh-sort-by="roomName"><span>Room Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userName"><span>User Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="fromDate"><span>From Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="toDate"><span>To Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="currStatus"><span>Curr Status</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -31,9 +31,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="roomAllocation in vm.roomAllocations track by roomAllocation.id">
-                    <td><a ui-sref="room-allocation-detail({id:roomAllocation.id})">{{roomAllocation.id}}</a></td>
-                    <td>{{roomAllocation.roomId}}</td>
-                    <td>{{roomAllocation.userId}}</td>
+                    <!-- <td><a ui-sref="room-allocation-detail({id:roomAllocation.id})">{{roomAllocation.id}}</a></td> -->
+                    <td>{{roomAllocation.roomName}}</td>
+                    <td>{{roomAllocation.userName}}</td>
                         <td>{{roomAllocation.fromDate | date:'mediumDate'}}</td>
                         <td>{{roomAllocation.toDate | date:'mediumDate'}}</td>
                     <td>{{roomAllocation.currStatus}}</td>
@@ -70,3 +70,4 @@
         <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
 </div>
+

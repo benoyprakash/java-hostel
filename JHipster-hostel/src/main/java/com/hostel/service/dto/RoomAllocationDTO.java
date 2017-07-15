@@ -16,7 +16,13 @@ public class RoomAllocationDTO implements Serializable {
     @NotNull
     private String roomId;
 
+    private String roomName;
+
     private String userId;
+
+    private String userName;
+
+    private String buildingId;
 
     @NotNull
     private LocalDate fromDate;
@@ -86,6 +92,30 @@ public class RoomAllocationDTO implements Serializable {
 
     public void setUpdatedDateTime(LocalDate updatedDateTime) {
         this.updatedDateTime = updatedDateTime;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(String buildingId) {
+        this.buildingId = buildingId;
     }
 
     @Override

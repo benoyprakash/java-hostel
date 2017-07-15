@@ -27,14 +27,20 @@ public class RoomAllocation implements Serializable {
     @Field("room_id")
     private String roomId;
 
+    @NotNull
+    @Field("room_name")
+    private String roomName;
+
     @Field("user_id")
     private String userId;
+
+    @Field("userName")
+    private String userName;
 
     @NotNull
     @Field("from_date")
     private LocalDate fromDate;
 
-    @NotNull
     @Field("to_date")
     private LocalDate toDate;
 
@@ -47,6 +53,17 @@ public class RoomAllocation implements Serializable {
 
     @Field("updated_date_time")
     private LocalDate updatedDateTime;
+
+    @Field("buildingId")
+    private String buildingId;
+
+    public String getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(String buildingId) {
+        this.buildingId = buildingId;
+    }
 
     public String getId() {
         return id;
@@ -145,6 +162,22 @@ public class RoomAllocation implements Serializable {
 
     public void setUpdatedDateTime(LocalDate updatedDateTime) {
         this.updatedDateTime = updatedDateTime;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override

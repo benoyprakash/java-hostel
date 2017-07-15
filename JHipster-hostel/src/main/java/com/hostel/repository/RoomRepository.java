@@ -14,4 +14,6 @@ public interface RoomRepository extends MongoRepository<Room,String> {
 
     Page<Room> findByBuilding(Pageable pageable, String buildingId);
 
+
+
 }

@@ -27,8 +27,8 @@
 
         function loadAll () {
 
-            if($scope.clientData ==null || ($scope.clientData.client ==null  && $scope.clientData.location ==null  && $scope.clientData.building ==null)){
-                AlertService.error("Select the Client, Location and Building");
+            if($scope.clientData ==null || ($scope.clientData.client == null)){
+                AlertService.error("Select the Client");
             } else{
                 Location.query({
                     page: pagingParams.page - 1,

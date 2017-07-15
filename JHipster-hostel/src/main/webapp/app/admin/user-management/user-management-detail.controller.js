@@ -16,7 +16,7 @@
         vm.load($stateParams.login);
 
         function load(login) {
-            User.get({login: login}, function(result) {
+            User.get({idx: login}, function(result) {
                 vm.user = result;
             });
         }

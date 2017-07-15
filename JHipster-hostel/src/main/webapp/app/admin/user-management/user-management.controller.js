@@ -5,12 +5,16 @@
         .module('hostelApp')
         .controller('UserManagementController', UserManagementController);
 
-    UserManagementController.$inject = ['Principal', 'User', 'ParseLinks', 'AlertService', '$state', 'pagingParams', 'paginationConstants'];
+    UserManagementController.$inject = ['Principal', 'User', 'ParseLinks', 'AlertService', '$state', 'pagingParams',
+            'paginationConstants', '$scope', '$localStorage'];
 
-    function UserManagementController(Principal, User, ParseLinks, AlertService, $state, pagingParams, paginationConstants) {
+    function UserManagementController(Principal, User, ParseLinks, AlertService, $state, pagingParams,
+            paginationConstants, $scope, $localStorage) {
         var vm = this;
 
-        vm.authorities = ['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_USER'];
+        $scope.clientData = $localStorage.data.clientData;
+
+        vm.authorities = ['ROLE_MANAGER', 'ROLE_STAFF', 'ROLE_CUSTOMER'];
         vm.currentAccount = null;
         vm.languages = null;
         vm.loadAll = loadAll;
@@ -40,11 +44,21 @@
         }
 
         function loadAll () {
-            User.query({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort()
-            }, onSuccess, onError);
+            if($scope.clientData == null || $scope.clientData.client ==null){
+                AlertService.error("Select the Client, Location and Building");
+            } else{
+                var dataOf = 'customer';
+                if(pagingParams.typeOfData !== 'customer'){
+                    dataOf = 'clients';
+                }
+                User.query({
+                    page: pagingParams.page - 1,
+                    size: vm.itemsPerPage,
+                    sort: sort(),
+                    clients: dataOf,
+                    idx: $scope.clientData.client.id
+                }, onSuccess, onError);
+            }
         }
 
         function onSuccess(data, headers) {
@@ -52,6 +66,15 @@
             vm.totalItems = headers('X-Total-Count');
             vm.queryCount = vm.totalItems;
             vm.page = pagingParams.page;
+
+            for (var key in data) {
+                if(data[key] != null){
+                    if(data[key].client == $scope.clientData.client.id){
+                        data[key].client = $scope.clientData.client.clientName;
+                    }
+                }
+            }
+
             vm.users = data;
         }
 
@@ -64,7 +87,7 @@
                 id: null, login: null, firstName: null, lastName: null, email: null,
                 activated: null, langKey: null, createdBy: null, createdDate: null,
                 lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
-                resetKey: null, authorities: null
+                resetKey: null, authorities: null, client: null
             };
         }
 

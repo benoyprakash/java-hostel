@@ -57,7 +57,7 @@ public class LocationResource {
         }
         LocationDTO result = locationService.save(locationDTO);
         return ResponseEntity.created(new URI("/api/locations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getLocationName()))
             .body(result);
     }
 
@@ -123,8 +123,8 @@ public class LocationResource {
     @Timed
     public ResponseEntity<Void> deleteLocation(@PathVariable String id) {
         log.debug("REST request to delete Location : {}", id);
-        locationService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        //locationService.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
 }

@@ -60,7 +60,7 @@ public class ClientResource {
         }
         ClientDTO result = clientService.save(clientDTO);
         return ResponseEntity.created(new URI("/api/clients/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId()))
             .body(result);
     }
 
@@ -82,7 +82,7 @@ public class ClientResource {
         }
         ClientDTO result = clientService.save(clientDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, clientDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, clientDTO.getClientName()))
             .body(result);
     }
 
@@ -130,8 +130,8 @@ public class ClientResource {
     @Timed
     public ResponseEntity<Void> deleteClient(@PathVariable String id) {
         log.debug("REST request to delete Client : {}", id);
-        clientService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        //clientService.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
 }
