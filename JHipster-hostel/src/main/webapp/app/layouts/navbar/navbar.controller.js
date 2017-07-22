@@ -11,7 +11,8 @@
     function NavbarController ($scope, $state, Auth, Principal, ProfileService, LoginService, $log, $localStorage,
                                   Client, Location, Building) {
         var vm = this;
-
+        vm.editEnabled = true;
+        vm.editButtomLabel = "Save";
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
 
@@ -38,14 +39,26 @@
         $scope.clientData.location = null;
         $scope.clientData.building = null;
 
-        if($localStorage.data.clientData != null){
+        getClients();
+
+        if($localStorage.data && $localStorage.data.clientData != null){
             vm.selectedClient = $localStorage.data.clientData.client;
             vm.selectedLocation = $localStorage.data.clientData.location;
             vm.selectedBuilding = $localStorage.data.clientData.building;
-
+        } else {
+            $localStorage.data = {};
         }
 
-        getClients();
+        $scope.toggleEdit = function(){
+            vm.editEnabled = !vm.editEnabled;
+            console.log(vm.editEnabled);
+            if(vm.editEnabled == true){
+                vm.editButtomLabel = 'Save';
+            } else {
+                vm.editButtomLabel = 'Edit';
+            }
+
+        }
 
         function login() {
             collapseNavbar();
@@ -55,6 +68,7 @@
         function logout() {
             collapseNavbar();
             Auth.logout();
+            $localStorage.data = {};
             $state.go('home');
         }
 

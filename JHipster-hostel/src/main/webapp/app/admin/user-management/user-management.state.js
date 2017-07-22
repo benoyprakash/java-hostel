@@ -38,7 +38,8 @@
                         page: PaginationUtil.parsePage($stateParams.page),
                         sort: $stateParams.sort,
                         predicate: PaginationUtil.parsePredicate($stateParams.sort),
-                        ascending: PaginationUtil.parseAscending($stateParams.sort)
+                        ascending: PaginationUtil.parseAscending($stateParams.sort),
+
                     };
                 }]
             }        })

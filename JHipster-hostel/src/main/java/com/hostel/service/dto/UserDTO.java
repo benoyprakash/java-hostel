@@ -61,8 +61,11 @@ public class UserDTO {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-            user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()), user.getClientId());
+            user.getAuthorities()
+                .stream()
+                .map(Authority::getName)
+                .collect(Collectors.toSet()),
+            user.getClientId());
     }
 
     public UserDTO(String id, String login, String firstName, String lastName,

@@ -18,7 +18,7 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="roomName"><span>Room Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="floor"><span>Floor</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="building"><span>Building</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="room in vm.rooms track by room.id">
-                    <td><a ui-sref="room-detail({id:room.id})">{{room.id}}</a></td>
+                    <!--<td><a ui-sref="room-detail({id:room.id})">{{room.id}}</a></td>-->
                     <td>{{room.roomName}}</td>
                     <td>{{room.floor}}</td>
                     <td>{{room.building}}</td>

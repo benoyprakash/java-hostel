@@ -30,6 +30,29 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.transition = transition;
 
+        vm.roleValues = [];
+        vm.showRoleChanger = null;
+
+        vm.dataOf = null;
+        vm.dataOfSelected = 'CUSTOMER';
+
+        if($localStorage.data && $localStorage.data.user){
+            if($localStorage.data.user.authorities && $localStorage.data.user.authorities.indexOf('ROLE_CUSTOMER') >= 0){
+                vm.showRoleChanger = false;
+            } else {
+                vm.showRoleChanger = true;
+                if($localStorage.data.user.authorities.indexOf('ROLE_ADMIN') >= 0){
+                    vm.roleValues = ['ALL', 'MANAGER', 'STAFF', 'CUSTOMER'];
+                } else if($localStorage.data.user.authorities.indexOf('ROLE_MANAGER') >= 0){
+                   vm.roleValues = ['MANAGER', 'STAFF', 'CUSTOMER'];
+                } else if($localStorage.data.user.authorities.indexOf('ROLE_STAFF') >= 0){
+                    vm.roleValues = ['CUSTOMER'];
+                }
+            }
+        } else {
+            AlertService.error("Something went wrong. Please log out and login again.");
+        }
+
         vm.loadAll();
         Principal.identity().then(function(account) {
             vm.currentAccount = account;
@@ -44,18 +67,24 @@
         }
 
         function loadAll () {
-            if($scope.clientData == null || $scope.clientData.client ==null){
+            if($scope.clientData == null || $scope.clientData.client == null){
                 AlertService.error("Select the Client, Location and Building");
             } else{
-                var dataOf = 'customer';
-                if(pagingParams.typeOfData !== 'customer'){
-                    dataOf = 'clients';
+                //var dataOf = 'customer';
+                if(vm.dataOfSelected == null ||vm.dataOfSelected === "CUSTOMER"){
+                    vm.dataOf = 'customer';
+                } else {
+                    if(vm.dataOfSelected == 'MANAGER' || vm.dataOfSelected == 'ALL'){
+                        vm.dataOf = 'clients';
+                    } else {
+                        vm.dataOf = 'customer';
+                    }
                 }
                 User.query({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort(),
-                    clients: dataOf,
+                    clients: vm.dataOf,
                     idx: $scope.clientData.client.id
                 }, onSuccess, onError);
             }

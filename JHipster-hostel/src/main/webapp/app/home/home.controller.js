@@ -26,7 +26,8 @@
             Principal.identity().then(function(account) {
                 vm.account = account;
                 if(account){
-                    $localStorage.data.currentUserRoles = account.authorities;
+                    $localStorage.data.user = {};
+                    $localStorage.data.user = account;
                 }
                 vm.isAuthenticated = Principal.isAuthenticated;
             });

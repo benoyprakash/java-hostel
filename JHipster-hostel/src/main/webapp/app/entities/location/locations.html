@@ -18,7 +18,7 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                   <!-- <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="locationName"><span>Location Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="country"><span>Country</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="state"><span>State</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -30,7 +30,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="location in vm.locations track by location.id">
-                    <td><a ui-sref="location-detail({id:location.id})">{{location.id}}</a></td>
+                    <!--<td><a ui-sref="location-detail({id:location.id})">{{location.id}}</a></td>-->
                     <td>{{location.locationName}}</td>
                     <td>{{location.country}}</td>
                     <td>{{location.state}}</td>
