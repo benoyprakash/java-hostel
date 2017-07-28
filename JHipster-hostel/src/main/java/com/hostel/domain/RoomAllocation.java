@@ -44,9 +44,8 @@ public class RoomAllocation implements Serializable {
     @Field("to_date")
     private LocalDate toDate;
 
-    @NotNull
     @Field("curr_status")
-    private RoomStatus currStatus;
+    private RoomStatus currStatus = RoomStatus.ACTIVE;
 
     @Field("updated_by")
     private String updatedBy;

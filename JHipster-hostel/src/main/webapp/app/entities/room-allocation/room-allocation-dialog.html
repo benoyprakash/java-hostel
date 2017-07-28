@@ -91,7 +91,7 @@
             <label class="control-label" for="field_updatedDateTime">Updated Date Time</label>
                 <div class="input-group">
                     <input id="field_updatedDateTime" type="text" class="form-control" name="updatedDateTime" uib-datepicker-popup="{{dateformat}}" ng-model="vm.roomAllocation.updatedDateTime" is-open="vm.datePickerOpenStatus.updatedDateTime"
-                    />
+                    readonly/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedDateTime')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>

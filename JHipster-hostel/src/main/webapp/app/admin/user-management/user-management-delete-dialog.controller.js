@@ -19,7 +19,7 @@
         }
 
         function confirmDelete (login) {
-            User.delete({login: login},
+            User.delete({clients: login},
                 function () {
                     $uibModalInstance.close(true);
                 });

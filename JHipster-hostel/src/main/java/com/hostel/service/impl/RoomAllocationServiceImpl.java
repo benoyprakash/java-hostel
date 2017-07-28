@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +55,8 @@ public class RoomAllocationServiceImpl implements RoomAllocationService{
         log.debug("Request to save RoomAllocation : {}", roomAllocationDTO);
         RoomAllocation roomAllocation = roomAllocationMapper.roomAllocationDTOToRoomAllocation(roomAllocationDTO);
         roomAllocation.setBuildingId(roomAllocationDTO.getBuildingId());
+        roomAllocation.setUpdatedDateTime(LocalDate.now());
+        roomAllocation.setRoomName(roomService.findRoom(roomAllocationDTO.getRoomId()).getRoomName());
         roomAllocation = roomAllocationRepository.save(roomAllocation);
         return roomAllocationMapper.roomAllocationToRoomAllocationDTO(roomAllocation);
     }

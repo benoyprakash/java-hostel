@@ -16,7 +16,7 @@
         vm.save = save;
         vm.user = entity;
         vm.clientData = $localStorage.data.clientData;
-        vm.user.client = vm.clientData.client.id;
+        vm.user.clientId = vm.clientData.client.id;
         vm.user.clientName = vm.clientData.client.clientName;
 
         function clear () {
@@ -35,11 +35,11 @@
         function save () {
             vm.isSaving = true;
             if (vm.user.id !== null) {
-                vm.user.client = vm.clientData.client.id;
+                vm.user.clientId = vm.clientData.client.id;
                 User.update(vm.user, onSaveSuccess, onSaveError);
             } else {
                 vm.user.langKey = 'en';
-                vm.user.client = vm.clientData.client.id;
+                vm.user.clientId = vm.clientData.client.id;
                 User.save(vm.user, onSaveSuccess, onSaveError);
             }
         }

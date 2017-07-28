@@ -21,6 +21,11 @@ public final class Constants {
     public static final String USER_ROLE_STAFF = "ROLE_STAFF";
     public static final String USER_ROLE_CUSTOMER = "ROLE_CUSTOMER";
 
+    public static final String STATUS_ACTIVE = "ACTIVE";
+    public static final String STATUS_INACTIVE = "INACTIVE";
+    public static final String STATUS_DELETED = "DELETED";
+
+
     private Constants() {
     }
 }

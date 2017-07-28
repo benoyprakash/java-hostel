@@ -27,7 +27,6 @@ public class RoomAllocationDTO implements Serializable {
     @NotNull
     private LocalDate fromDate;
 
-    @NotNull
     private LocalDate toDate;
 
     @NotNull

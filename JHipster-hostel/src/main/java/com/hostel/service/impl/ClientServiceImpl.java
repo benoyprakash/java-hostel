@@ -1,5 +1,6 @@
 package com.hostel.service.impl;
 
+import com.hostel.config.Constants;
 import com.hostel.service.ClientService;
 import com.hostel.domain.Client;
 import com.hostel.repository.ClientRepository;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService{
 
     private final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
-    
+
     private final ClientRepository clientRepository;
 
     private final ClientMapper clientMapper;
@@ -49,7 +50,7 @@ public class ClientServiceImpl implements ClientService{
 
     /**
      *  Get all the clients.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -81,7 +82,9 @@ public class ClientServiceImpl implements ClientService{
      */
     @Override
     public void delete(String id) {
+        Client client = clientRepository.findOne(id);
+        client.setStatus(Constants.STATUS_DELETED);
         log.debug("Request to delete Client : {}", id);
-        clientRepository.delete(id);
+        clientRepository.save(client);
     }
 }

@@ -1,5 +1,6 @@
 package com.hostel.domain;
 
+import com.hostel.config.Constants;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -29,6 +30,8 @@ public class Client implements Serializable {
     @Field("desc")
     private String desc;
 
+    @Field("status")
+    private String status = Constants.STATUS_ACTIVE;
 
     public String getId() {
         return id;
@@ -64,6 +67,13 @@ public class Client implements Serializable {
         this.desc = desc;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public boolean equals(Object o) {
