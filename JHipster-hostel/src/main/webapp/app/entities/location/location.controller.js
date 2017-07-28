@@ -52,7 +52,7 @@
 
                     for (var key in data) {
                         if(data[key] != null){
-                            if(data[key].client == $scope.clientData.client.id){
+                            if(data[key].client === $scope.clientData.client.id){
                                 data[key].client = $scope.clientData.client.clientName;
                             }
                         }
