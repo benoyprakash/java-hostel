@@ -1,0 +1,199 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPaymentsLabel">Create or edit a Payments</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.payments.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.payments.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_room">Room</label>
+
+            <select class="form-control" id="field_room" name="roomId" ng-model="vm.payments.room" ng-options="room.id as room.roomName for room in vm.rooms" required>
+            </select>
+
+            <!--
+            <input type="text" class="form-control" name="room" id="field_room"
+                    ng-model="vm.payments.room" ng-hide="vm.payments.roomName"
+                    required/>
+            <input type="text" class="form-control" name="roomName" id="field_room_name"
+                   ng-model="vm.payments.roomName" ng-show="vm.payments.roomName"
+                   readonly/>
+                   -->
+            <div ng-show="editForm.room.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.room.$error.required">
+                    This field is required.
+                </p>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_customer">Customer</label>
+            <select class="form-control" id="field_customer" name="userId" ng-model="vm.payments.customer" ng-options="usr.id as usr.lastName for usr in vm.users" required>
+            </select>
+            <!--
+            <input type="text" class="form-control" name="customer" id="field_customer"
+                    ng-model="vm.payments.customer" ng-hide="vm.payments.customer"
+                    required/>
+            <input type="text" class="form-control" name="customerName" id="field_customer_name"
+                   ng-model="vm.payments.customerName" ng-show="vm.payments.customerName"
+                   readonly/>
+                   -->
+            <div ng-show="editForm.customer.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.customer.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dateOfJoin">Date Of Join</label>
+                <div class="input-group">
+                    <input id="field_dateOfJoin" type="text" class="form-control" name="dateOfJoin" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.dateOfJoin" is-open="vm.datePickerOpenStatus.dateOfJoin"
+                    required ng-disabled="vm.payments.dateOfJoin"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateOfJoin')" ng-disabled="vm.payments.dateOfJoin"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.dateOfJoin.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dateOfJoin.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                    ng-model="vm.payments.amount"
+                    required/>
+            <div ng-show="editForm.amount.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.amount.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.amount.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_paymentDate">Payment Date</label>
+                <div class="input-group">
+                    <input id="field_paymentDate" type="text" class="form-control" name="paymentDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.paymentDate" is-open="vm.datePickerOpenStatus.paymentDate"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('paymentDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.paymentDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.paymentDate.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_paymentFrom">Payment From</label>
+                <div class="input-group">
+                    <input id="field_paymentFrom" type="text" class="form-control" name="paymentFrom" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.paymentFrom" is-open="vm.datePickerOpenStatus.paymentFrom"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('paymentFrom')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.paymentFrom.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.paymentFrom.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_paymentTo">Payment To</label>
+                <div class="input-group">
+                    <input id="field_paymentTo" type="text" class="form-control" name="paymentTo" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.paymentTo" is-open="vm.datePickerOpenStatus.paymentTo"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('paymentTo')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.paymentTo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.paymentTo.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_paymentStatus">Payment Status</label>
+            <select class="form-control" name="paymentStatus" ng-model="vm.payments.paymentStatus" id="field_paymentStatus" required>
+                <option value="PAID">PAID</option>
+                <option value="PAID_PARTIAL">PAID PARTIAL</option>
+                <option value="NOT_PAID">NOT PAID</option>
+                <option value="CANCELLED">CANCELLED</option>
+                <option value="OTHERS">OTHERS</option>
+            </select>
+            <div ng-show="editForm.paymentStatus.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.paymentStatus.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_payentAgainst">Payent Against</label>
+            <select class="form-control" name="payentAgainst" ng-model="vm.payments.payentAgainst" id="field_payentAgainst" required>
+                <option value="ADVANCE">ADVANCE</option>
+                <option value="RENT">RENT</option>
+                <option value="FINE">FINE</option>
+                <option value="OTHERS">OTHERS</option>
+            </select>
+            <div ng-show="editForm.payentAgainst.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.payentAgainst.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_comments">Comments</label>
+            <input type="text" class="form-control" name="comments" id="field_comments"
+                    ng-model="vm.payments.comments"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_building">Building</label>
+            <input type="text" class="form-control" name="building" id="field_building"
+                    ng-model="vm.payments.building" ng-hide="vm.payments.buildingName"
+                    />
+            <input type="text" class="form-control" name="buildingName" id="field_building_name"
+                   ng-model="vm.payments.buildingName" ng-show="vm.payments.buildingName"
+                   readonly/>
+            <div ng-show="editForm.building.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.building.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
