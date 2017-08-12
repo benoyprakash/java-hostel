@@ -2,6 +2,7 @@ package com.hostel.service.impl;
 
 import com.hostel.domain.Room;
 import com.hostel.domain.User;
+import com.hostel.domain.enumeration.PaymentAgainstType;
 import com.hostel.domain.enumeration.PaymentStatus;
 import com.hostel.repository.RoomRepository;
 import com.hostel.repository.UserRepository;
@@ -15,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -53,6 +56,13 @@ public class PaymentsServiceImpl implements PaymentsService{
         Payments payments = paymentsMapper.toEntity(paymentsDTO);
         payments = paymentsRepository.save(payments);
         return paymentsMapper.toDto(payments);
+    }
+
+    @Override
+    public Payments savePayment(Payments payments) {
+        log.debug("Request to save Payments : {}", payments);
+        payments = paymentsRepository.save(payments);
+        return payments;
     }
 
     /**
@@ -144,4 +154,16 @@ public class PaymentsServiceImpl implements PaymentsService{
         payment.setPaymentStatus(PaymentStatus.CANCELLED);
         paymentsRepository.save(payment);
     }
+
+
+    @Override
+    public List<Payments> findUserRoomPaymentWithStatus(String userId, String roomId, PaymentAgainstType type, List<PaymentStatus> status){
+        return paymentsRepository.findByCustomerAndRoomAndPayentAgainstAndPaymentStatusIn(userId, roomId, type, status);
+    }
+
+    @Override
+    public Payments findUserRoomLastPaymentWithTypeAndStatus(String userId, String roomId, PaymentAgainstType type, List<PaymentStatus> status){
+        return paymentsRepository.findOneByCustomerAndRoomAndPayentAgainstAndPaymentStatusInOrderByPaymentToDesc(userId, roomId, type, status);
+    }
+
 }

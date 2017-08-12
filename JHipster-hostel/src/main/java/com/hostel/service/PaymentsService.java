@@ -1,8 +1,13 @@
 package com.hostel.service;
 
+import com.hostel.domain.Payments;
+import com.hostel.domain.enumeration.PaymentAgainstType;
+import com.hostel.domain.enumeration.PaymentStatus;
 import com.hostel.service.dto.PaymentsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * Service Interface for managing Payments.
@@ -41,4 +46,11 @@ public interface PaymentsService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    Payments savePayment(Payments payments);
+
+    List<Payments> findUserRoomPaymentWithStatus(String userId, String roomId, PaymentAgainstType type, List<PaymentStatus> status);
+
+    Payments findUserRoomLastPaymentWithTypeAndStatus(String userId, String roomId, PaymentAgainstType type, List<PaymentStatus> status);
+
 }

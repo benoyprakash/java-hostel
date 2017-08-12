@@ -25,6 +25,8 @@ public final class Constants {
     public static final String STATUS_INACTIVE = "INACTIVE";
     public static final String STATUS_DELETED = "DELETED";
 
+    public static final String PAYMENT_ENTRY_COMMENT = "Auto generated payment entry";
+
 
     private Constants() {
     }

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -136,4 +137,11 @@ public class RoomAllocationServiceImpl implements RoomAllocationService{
 
         return results;
     }
+
+
+    public List<RoomAllocation> findRoomAllocationsByStatus(RoomStatus currStatus){
+
+        return roomAllocationRepository.findByCurrStatus(currStatus);
+    }
 }
+

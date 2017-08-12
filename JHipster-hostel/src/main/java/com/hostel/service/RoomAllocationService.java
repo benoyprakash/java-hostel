@@ -1,5 +1,6 @@
 package com.hostel.service;
 
+import com.hostel.domain.RoomAllocation;
 import com.hostel.domain.enumeration.RoomStatus;
 import com.hostel.service.dto.RoomAllocationDTO;
 import org.springframework.data.domain.Page;
@@ -45,4 +46,7 @@ public interface RoomAllocationService {
     Page<RoomAllocationDTO> findRoomAllocationsByBuilding(Pageable pageable, String buildingId);
 
     Page<RoomAllocationDTO> findRoomAllocationsByBuildingAndStatus(Pageable pageable, String buildingId, RoomStatus currStatus);
+
+    List<RoomAllocation> findRoomAllocationsByStatus(RoomStatus currStatus);
+
 }

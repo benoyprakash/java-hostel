@@ -30,7 +30,7 @@ public class Payments implements Serializable {
     @Field("customer")
     private String customer;
 
-    @NotNull
+//    @NotNull
     @Field("date_of_join")
     private LocalDate dateOfJoin;
 
@@ -38,7 +38,7 @@ public class Payments implements Serializable {
     @Field("amount")
     private Double amount;
 
-    @NotNull
+    //@NotNull
     @Field("payment_date")
     private LocalDate paymentDate;
 
@@ -64,6 +64,24 @@ public class Payments implements Serializable {
     @NotNull
     @Field("building")
     private String building;
+
+    public Payments() {
+    }
+
+    public Payments(String id, String room, String customer, LocalDate dateOfJoin, Double amount, LocalDate paymentDate, LocalDate paymentFrom, LocalDate paymentTo, PaymentStatus paymentStatus, PaymentAgainstType payentAgainst, String comments, String building) {
+        this.id = id;
+        this.room = room;
+        this.customer = customer;
+        this.dateOfJoin = dateOfJoin;
+        this.amount = amount;
+        this.paymentDate = paymentDate;
+        this.paymentFrom = paymentFrom;
+        this.paymentTo = paymentTo;
+        this.paymentStatus = paymentStatus;
+        this.payentAgainst = payentAgainst;
+        this.comments = comments;
+        this.building = building;
+    }
 
     public String getId() {
         return id;

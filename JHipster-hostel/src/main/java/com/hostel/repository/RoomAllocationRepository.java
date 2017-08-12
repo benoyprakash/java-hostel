@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 /**
  * Spring Data MongoDB repository for the RoomAllocation entity.
  */
@@ -17,5 +19,7 @@ public interface RoomAllocationRepository extends MongoRepository<RoomAllocation
     Page<RoomAllocation> findByBuildingId(Pageable pageable, String buildingId);
 
     Page<RoomAllocation> findByBuildingIdAndCurrStatus(Pageable pageable, String buildingId, RoomStatus currStatus);
+
+    List<RoomAllocation> findByCurrStatus(RoomStatus currStatus);
 
 }
