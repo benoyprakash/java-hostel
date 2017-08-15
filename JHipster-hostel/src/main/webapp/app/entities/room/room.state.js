@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/room?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER'],
                 pageTitle: 'Rooms'
             },
             views: {
@@ -50,7 +50,7 @@
             parent: 'room',
             url: '/room/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER'],
                 pageTitle: 'Room'
             },
             views: {
@@ -78,7 +78,7 @@
             parent: 'room-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -103,7 +103,7 @@
             parent: 'room',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -133,7 +133,7 @@
             parent: 'room',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -158,7 +158,7 @@
             parent: 'room',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

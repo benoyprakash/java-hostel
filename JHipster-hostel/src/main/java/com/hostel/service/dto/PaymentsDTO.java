@@ -25,7 +25,7 @@ public class PaymentsDTO implements Serializable {
 
     private String customerName;
 
-    @NotNull
+    //@NotNull
     private LocalDate dateOfJoin;
 
     @NotNull

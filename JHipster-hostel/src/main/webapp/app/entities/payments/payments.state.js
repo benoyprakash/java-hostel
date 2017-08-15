@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/payments',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER'],
                 pageTitle: 'Payments'
             },
             views: {
@@ -30,7 +30,7 @@
             parent: 'payments',
             url: '/payments/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER'],
                 pageTitle: 'Payments'
             },
             views: {
@@ -58,7 +58,7 @@
             parent: 'payments-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -83,7 +83,7 @@
             parent: 'payments',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -121,7 +121,7 @@
             parent: 'payments',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -146,7 +146,7 @@
             parent: 'payments',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_ADMIN', 'ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

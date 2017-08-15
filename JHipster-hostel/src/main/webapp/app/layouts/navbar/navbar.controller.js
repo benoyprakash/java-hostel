@@ -35,19 +35,19 @@
         vm.selectedBuilding = null;
 
         $scope.clientData = {};
-        $scope.clientData.client = null;
-        $scope.clientData.location = null;
-        $scope.clientData.building = null;
+//        $scope.clientData.client = null;
+//        $scope.clientData.location = null;
+//        $scope.clientData.building = null;
 
         getClients();
 
-        if($localStorage.data && $localStorage.data.clientData != null){
-            vm.selectedClient = $localStorage.data.clientData.client;
-            vm.selectedLocation = $localStorage.data.clientData.location;
-            vm.selectedBuilding = $localStorage.data.clientData.building;
-        } else {
-            $localStorage.data = {};
-        }
+//        if($localStorage.data && $localStorage.data.clientData != null){
+//            vm.selectedClient = $localStorage.data.clientData.client;
+//            vm.selectedLocation = $localStorage.data.clientData.location;
+//            vm.selectedBuilding = $localStorage.data.clientData.building;
+//        } else {
+//            $localStorage.data = {};
+//        }
 
         $scope.toggleEdit = function(){
             vm.editEnabled = !vm.editEnabled;
@@ -56,6 +56,7 @@
                 vm.editButtomLabel = 'Save';
             } else {
                 vm.editButtomLabel = 'Edit';
+                $state.go('home');
             }
 
         }
