@@ -26,6 +26,9 @@
             Principal.identity().then(function(account) {
                 vm.account = account;
                 if(account){
+                    if(!$localStorage.data){
+                        $localStorage.data = {};
+                    }
                     $localStorage.data.user = {};
                     $localStorage.data.user = account;
                 }

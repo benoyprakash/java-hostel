@@ -1,8 +1,10 @@
 package com.hostel.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.hostel.config.Constants;
 import com.hostel.security.SecurityUtils;
 import com.hostel.service.ClientService;
+import com.hostel.service.UserService;
 import com.hostel.web.rest.util.HeaderUtil;
 import com.hostel.web.rest.util.PaginationUtil;
 import com.hostel.service.dto.ClientDTO;
@@ -40,8 +42,12 @@ public class ClientResource {
 
     private final ClientService clientService;
 
-    public ClientResource(ClientService clientService) {
+    private final UserService userService;
+
+    public ClientResource(ClientService clientService, UserService userService) {
+
         this.clientService = clientService;
+        this.userService = userService;
     }
 
     /**
@@ -97,10 +103,12 @@ public class ClientResource {
     public ResponseEntity<List<ClientDTO>> getAllClients(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Clients");
         Page<ClientDTO> page = new PageImpl(new ArrayList<ClientDTO>());
-        if(SecurityUtils.isCurrentUserInRole("ROLE_ADMIN")){
+        if(SecurityUtils.isCurrentUserInRole(Constants.USER_ROLE_ADMIN)){
             page = clientService.findAll(pageable);
+        } else {
+            String userName = SecurityUtils.getCurrentUserLogin();
+            page = clientService.findOneAsPage(pageable, userService.getUser(userName).getClientId());
         }
-
 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/clients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

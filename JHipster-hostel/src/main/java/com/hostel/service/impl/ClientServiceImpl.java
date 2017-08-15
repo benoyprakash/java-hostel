@@ -61,6 +61,14 @@ public class ClientServiceImpl implements ClientService{
         return result.map(client -> clientMapper.clientToClientDTO(client));
     }
 
+    @Override
+    public Page<ClientDTO> findOneAsPage(Pageable pageable, String clientId) {
+        log.debug("Request to get all Clients");
+        Page<Client> result = clientRepository.findById(pageable, clientId);
+        return result.map(client -> clientMapper.clientToClientDTO(client));
+    }
+
+
     /**
      *  Get one client by id.
      *

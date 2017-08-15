@@ -20,11 +20,13 @@ public interface ClientService {
 
     /**
      *  Get all the clients.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
     Page<ClientDTO> findAll(Pageable pageable);
+
+    Page<ClientDTO> findOneAsPage(Pageable pageable, String clientId);
 
     /**
      *  Get the "id" client.

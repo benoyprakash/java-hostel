@@ -5,6 +5,7 @@ import com.hostel.HostelApp;
 import com.hostel.domain.Client;
 import com.hostel.repository.ClientRepository;
 import com.hostel.service.ClientService;
+import com.hostel.service.UserService;
 import com.hostel.service.dto.ClientDTO;
 import com.hostel.service.mapper.ClientMapper;
 import com.hostel.web.rest.errors.ExceptionTranslator;
@@ -54,6 +55,9 @@ public class ClientResourceIntTest {
     private ClientService clientService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -69,7 +73,7 @@ public class ClientResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ClientResource clientResource = new ClientResource(clientService);
+        ClientResource clientResource = new ClientResource(clientService, userService);
         this.restClientMockMvc = MockMvcBuilders.standaloneSetup(clientResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

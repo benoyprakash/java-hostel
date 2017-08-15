@@ -14,6 +14,7 @@
         vm.editEnabled = true;
         vm.editButtomLabel = "Save";
         vm.isNavbarCollapsed = true;
+        vm.isClientSelectionNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
 
         ProfileService.getProfileInfo().then(function(response) {
@@ -25,6 +26,7 @@
         vm.logout = logout;
         vm.toggleNavbar = toggleNavbar;
         vm.collapseNavbar = collapseNavbar;
+        vm.toggleClientSelectionNavbar = toggleClientSelectionNavbar;
         vm.$state = $state;
 
         vm.clients = null;
@@ -51,7 +53,6 @@
 
         $scope.toggleEdit = function(){
             vm.editEnabled = !vm.editEnabled;
-            console.log(vm.editEnabled);
             if(vm.editEnabled == true){
                 vm.editButtomLabel = 'Save';
             } else {
@@ -70,11 +71,16 @@
             collapseNavbar();
             Auth.logout();
             $localStorage.data = {};
+            $scope.clientData = {};
             $state.go('home');
         }
 
         function toggleNavbar() {
             vm.isNavbarCollapsed = !vm.isNavbarCollapsed;
+        }
+
+        function toggleClientSelectionNavbar() {
+            vm.isClientSelectionNavbarCollapsed = !vm.isClientSelectionNavbarCollapsed;
         }
 
         function collapseNavbar() {

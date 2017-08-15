@@ -70,7 +70,6 @@
             if($scope.clientData == null || $scope.clientData.client == null){
                 AlertService.error("Select the Client, Location and Building");
             } else{
-                //var dataOf = 'customer';
                 if(vm.dataOfSelected == null ||vm.dataOfSelected === "CUSTOMER"){
                     vm.dataOf = 'customer';
                 } else {
