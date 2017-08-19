@@ -3,13 +3,49 @@
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 no-padding-left">
+            <div class="col-md-6 no-padding-left">
                 <button class="btn btn-primary" ui-sref="payments.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
                         Create new Payments
                     </span>
                 </button>
+            </div>
+            <div class="well col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label" >Filter</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input id="searchFromDate" type="text" class="form-control" name="searchFromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.searchFromDate" is-open="vm.datePickerOpenStatus.searchFromDate"
+                                   required/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.openCalendar('searchFromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input id="searchToDate" type="text" class="form-control" name="searchToDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.searchToDate" is-open="vm.datePickerOpenStatus.searchToDate"
+                                   required/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.openCalendar('searchToDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label class="control-label" >Payment Status</label>
+                    </div>
+                    <div class="col-xs-4">
+                        <select class="form-control" ng-model="">
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -21,12 +57,12 @@
                     <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="room"><span>Room</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="customer"><span>Customer</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="paymentStatus"><span>Payment Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <!--<th jh-sort-by="dateOfJoin"><span>Date Of Join</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="amount"><span>Amount</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <!--<th jh-sort-by="paymentDate"><span>Payment Date</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="paymentFrom"><span>Payment From</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="paymentTo"><span>Payment To</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="paymentStatus"><span>Payment Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="payentAgainst"><span>Payent Against</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <!--<th jh-sort-by="comments"><span>Comments</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <!--<th jh-sort-by="building"><span>Building</span> <span class="glyphicon glyphicon-sort"></span></th>-->
@@ -38,11 +74,6 @@
                     <!--<td><a ui-sref="payments-detail({id:payments.id})">{{payments.id}}</a></td>-->
                     <td>{{payments.roomName}}</td>
                     <td>{{payments.customerName}}</td>
-                    <!--<td>{{payments.dateOfJoin | date:'mediumDate'}}</td>-->
-                    <td>{{payments.amount}}</td>
-                    <!--<td>{{payments.paymentDate | date:'mediumDate'}}</td>-->
-                    <td>{{payments.paymentFrom | date:'mediumDate'}}</td>
-                    <td>{{payments.paymentTo | date:'mediumDate'}}</td>
                     <td>
                         <span ng-if="payments.paymentStatus == 'PAID'">
                             <span class="label label-success">{{payments.paymentStatus}}</span>
@@ -57,6 +88,11 @@
                             <span class="label label-default">{{payments.paymentStatus}}</span>
                         </span>
                     </td>
+                    <!--<td>{{payments.dateOfJoin | date:'mediumDate'}}</td>-->
+                    <td>{{payments.amount}}</td>
+                    <!--<td>{{payments.paymentDate | date:'mediumDate'}}</td>-->
+                    <td>{{payments.paymentFrom | date:'mediumDate'}}</td>
+                    <td>{{payments.paymentTo | date:'mediumDate'}}</td>
                     <td>{{payments.payentAgainst}}</td>
                     <!--<td>{{payments.comments}}</td>-->
                     <!--<td>{{payments.building}}</td>-->

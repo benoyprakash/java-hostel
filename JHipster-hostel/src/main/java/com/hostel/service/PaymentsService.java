@@ -7,6 +7,8 @@ import com.hostel.service.dto.PaymentsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public interface PaymentsService {
      */
     Page<PaymentsDTO> findAll(Pageable pageable);
 
-    Page<PaymentsDTO> findAllByBuilding(Pageable pageable, String buildingId);
+    Page<PaymentsDTO> findAllByBuildingAndDateFilter(Pageable pageable, String buildingId, LocalDate searchFromDate, LocalDate searchToDate);
 
     /**
      *  Get the "id" payments.

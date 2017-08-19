@@ -7,10 +7,12 @@ import com.hostel.web.rest.util.PaginationUtil;
 import com.hostel.service.dto.PaymentsDTO;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,9 +103,12 @@ public class PaymentsResource {
 
     @GetMapping("/payments/building/{buildingId}")
     @Timed
-    public ResponseEntity<List<PaymentsDTO>> getAllPaymentsByBuilding(@ApiParam Pageable pageable, @PathVariable("buildingId") String buildingId) {
+    public ResponseEntity<List<PaymentsDTO>> getAllPaymentsByBuilding(@ApiParam Pageable pageable,
+          @PathVariable("buildingId") String buildingId,
+          @RequestParam(value = "searchFromDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate searchFromDate,
+          @RequestParam(value = "searchToDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate searchToDate) {
         log.debug("REST request to get a page of Payments");
-        Page<PaymentsDTO> page = paymentsService.findAllByBuilding(pageable, buildingId);
+        Page<PaymentsDTO> page = paymentsService.findAllByBuildingAndDateFilter(pageable, buildingId, searchFromDate, searchToDate);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

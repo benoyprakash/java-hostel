@@ -23,6 +23,11 @@
     <![endif]-->
     <page-ribbon></page-ribbon>
     <div ui-view="navbar" ng-cloak></div>
+<!--    <div class="container">
+        <div class="well">
+            <div ng-include="'./app/common/clientSelection/client-selection.html'"></div>
+        </div>
+    </div>-->
     <div class="container">
         <div class="well" ui-view="content">
             <!-- Angular views -->
@@ -196,6 +201,8 @@
     <script src="app/account/activate/activate.state.js"></script>
     <script src="app/account/activate/activate.controller.js"></script>
     <script src="app/account/account.state.js"></script>
+
+    <script src="app/common/clientSelection/clientSelection.controller.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
 

@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 
@@ -94,10 +96,14 @@ public class PaymentsServiceImpl implements PaymentsService{
     }
 
     @Override
-    public Page<PaymentsDTO> findAllByBuilding(Pageable pageable, String buildingId) {
+    public Page<PaymentsDTO> findAllByBuildingAndDateFilter(Pageable pageable, String buildingId, LocalDate searchFromDate,
+                                                            LocalDate searchToDate) {
         log.debug("Request to get all Payments");
-
-        Page<PaymentsDTO> payments = paymentsRepository.findByBuilding(pageable, buildingId)
+        if(searchFromDate == null || searchToDate == null){
+            searchFromDate = LocalDate.now().minusDays(90);
+            searchToDate = LocalDate.now().plusDays(90);
+        }
+        Page<PaymentsDTO> payments = paymentsRepository.findByBuildingAndPaymentFromGreaterThanEqualAndPaymentToLessThanEqual(pageable, buildingId, searchFromDate, searchToDate)
             .map(paymentsMapper::toDto);
 
         for(PaymentsDTO dto : payments.getContent()){

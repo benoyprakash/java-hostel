@@ -12,6 +12,8 @@ import com.hostel.service.PaymentsService;
 import com.hostel.service.RoomAllocationService;
 import com.hostel.service.RoomService;
 import com.hostel.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -36,6 +38,8 @@ public class PaymentGenerator {
 
     private final RoomService roomService;
 
+    private final Logger log = LoggerFactory.getLogger(PaymentGenerator.class);
+
     public PaymentGenerator(PaymentsService  paymentsService, RoomAllocationService roomAllocationService, UserService userService, RoomService roomService) {
         this.paymentsService =   paymentsService;
         this.roomAllocationService = roomAllocationService;
@@ -55,9 +59,9 @@ public class PaymentGenerator {
     "0 0 0 25 12 ?" = every Christmas Day at midnight
     */
 
-    @Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "0 */12 * * * *")
     public void generateRentPayments(){
-        System.out.println(new Date());
+        log.info("Payment generator scheduler ir running, Time >>> " + new Date());
 
         // get all allocations
         List<RoomAllocation> allocations = roomAllocationService.findRoomAllocationsByStatus(RoomStatus.ACTIVE);

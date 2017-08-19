@@ -3,6 +3,7 @@ package com.hostel.service.impl;
 import com.hostel.domain.Room;
 import com.hostel.domain.User;
 import com.hostel.domain.enumeration.RoomStatus;
+import com.hostel.security.SecurityUtils;
 import com.hostel.service.RoomAllocationService;
 import com.hostel.domain.RoomAllocation;
 import com.hostel.repository.RoomAllocationRepository;
@@ -57,6 +58,7 @@ public class RoomAllocationServiceImpl implements RoomAllocationService{
         RoomAllocation roomAllocation = roomAllocationMapper.roomAllocationDTOToRoomAllocation(roomAllocationDTO);
         roomAllocation.setBuildingId(roomAllocationDTO.getBuildingId());
         roomAllocation.setUpdatedDateTime(LocalDate.now());
+        roomAllocation.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
         roomAllocation.setRoomName(roomService.findRoom(roomAllocationDTO.getRoomId()).getRoomName());
         roomAllocation = roomAllocationRepository.save(roomAllocation);
         return roomAllocationMapper.roomAllocationToRoomAllocationDTO(roomAllocation);

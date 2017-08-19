@@ -12,6 +12,10 @@
 
         $scope.clientData = $localStorage.data.clientData;
         var vm = this;
+        vm.datePickerOpenStatus = {};
+        vm.openCalendar = openCalendar;
+//        vm.payments.searchFromDate = null;
+//        vm.payments.searchToDate = null;
 
         vm.payments = [];
         vm.loadPage = loadPage;
@@ -36,7 +40,9 @@
                     size: vm.itemsPerPage,
                     sort: sort(),
                     param1 : 'building',
-                    param2: $scope.clientData.building.id
+                    param2: $scope.clientData.building.id,
+                    searchFromDate : new Date(),
+                    searchToDate : new Date()
                 }, onSuccess, onError);
                 function sort() {
                     var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -69,6 +75,13 @@
         function loadPage(page) {
             vm.page = page;
             loadAll();
+        }
+
+        vm.datePickerOpenStatus.searchFromDate = false;
+        vm.datePickerOpenStatus.searchToDate = false;
+
+        function openCalendar (date) {
+            vm.datePickerOpenStatus[date] = true;
         }
     }
 })();

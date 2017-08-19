@@ -217,13 +217,10 @@ public class UserService {
     }
 
     public Page<UserDTO> getAllManagedUsers(Pageable pageable, String clientId) {
-        System.out.println("clientId : " + clientId);
-
         return userRepository.findAllByClientId(pageable, clientId).map(UserDTO::new);
     }
 
     public Page<UserDTO> getAllManagedCustomers(Pageable pageable, String clientId) {
-        System.out.println("clientId : " + clientId);
         return userRepository.findAllByClientIdAndAuthoritiesNameIn(pageable, clientId, Constants.USER_ROLE_CUSTOMER).map(UserDTO::new);
     }
 

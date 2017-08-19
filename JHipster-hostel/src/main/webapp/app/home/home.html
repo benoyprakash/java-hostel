@@ -1,3 +1,10 @@
+<div class="container" ng-show="vm.isAuthenticated()" >
+    <div class="navbar-collapse" ng-show="vm.isAuthenticated()" uib-collapse="vm.isClientSelectionNavbarCollapsed" >
+        <div class="row">
+            <div ng-include="'./app/common/clientSelection/client-selection.html'"></div>
+        </div>
+    </div>
+</div>
 <div ng-cloak>
     <div class="row">
         <div class="col-md-4">
