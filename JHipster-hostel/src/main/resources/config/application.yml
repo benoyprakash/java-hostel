@@ -72,7 +72,7 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: hostel@localhost
+        from: innfancy@gmail.com
     swagger:
         default-include-pattern: /api/.*
         title: hostel API
@@ -81,7 +81,7 @@ jhipster:
         terms-of-service-url:
         contact-name:
         contact-url:
-        contact-email:
+        contact-email: innfancy@gmail.com
         license:
         license-url:
     ribbon:

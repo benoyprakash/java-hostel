@@ -1,6 +1,7 @@
 package com.hostel.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.hostel.domain.enumeration.PaymentStatus;
 import com.hostel.service.PaymentsService;
 import com.hostel.web.rest.util.HeaderUtil;
 import com.hostel.web.rest.util.PaginationUtil;
@@ -106,9 +107,10 @@ public class PaymentsResource {
     public ResponseEntity<List<PaymentsDTO>> getAllPaymentsByBuilding(@ApiParam Pageable pageable,
           @PathVariable("buildingId") String buildingId,
           @RequestParam(value = "searchFromDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate searchFromDate,
-          @RequestParam(value = "searchToDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate searchToDate) {
+          @RequestParam(value = "searchToDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate searchToDate,
+          @RequestParam(value = "searchPaymentStatus", required = false)PaymentStatus searchPaymentStatus) {
         log.debug("REST request to get a page of Payments");
-        Page<PaymentsDTO> page = paymentsService.findAllByBuildingAndDateFilter(pageable, buildingId, searchFromDate, searchToDate);
+        Page<PaymentsDTO> page = paymentsService.findAllByBuildingAndDateFilter(pageable, buildingId, searchFromDate, searchToDate, searchPaymentStatus);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

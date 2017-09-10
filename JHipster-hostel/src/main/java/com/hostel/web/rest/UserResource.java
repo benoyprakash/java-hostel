@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -88,7 +89,7 @@ public class UserResource {
      */
     @PostMapping("/users")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    @Secured(value = {AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER, AuthoritiesConstants.STAFF})
     public ResponseEntity createUser(@RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
         log.debug("REST request to save User : {}", managedUserVM);
 
@@ -157,13 +158,15 @@ public class UserResource {
 
     @GetMapping("/users/clients/{clientId}")
     @Timed
-    public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable, @PathVariable String clientId) {
-        final Page<UserDTO> page = userService.getAllManagedUsers(pageable, clientId);
+    public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable, @PathVariable String clientId,
+                                                     @RequestParam(value = "role", required = true)String dataOfRole) {
+        final Page<UserDTO> page = userService.getAllManagedUsers(pageable, clientId, dataOfRole);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 
+    @Deprecated
     @GetMapping("/users/customer/{clientId}")
     @Timed
     public ResponseEntity<List<UserDTO>> getAllCustomers(@ApiParam Pageable pageable, @PathVariable String clientId) {
@@ -204,10 +207,16 @@ public class UserResource {
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
+    @Secured(value = {AuthoritiesConstants.ADMIN, AuthoritiesConstants.MANAGER, AuthoritiesConstants.STAFF})
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "A user is deleted with identifier " + login, login)).build();
+    }
+
+
+    @GetMapping("/mailtest")
+    public void sendEmail() {
+        mailService.sendEmail("innfancy@gmail.com", "test", "Hello content", true, true);
     }
 }

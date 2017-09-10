@@ -10,7 +10,6 @@
 
     function NavbarController ($scope, $state, Auth, Principal, ProfileService, LoginService, $log, $localStorage,
                                   Client, Location, Building) {
-        console.log($localStorage);
         var vm = this;
         vm.editEnabled = true;
         vm.editButtomLabel = "Save";

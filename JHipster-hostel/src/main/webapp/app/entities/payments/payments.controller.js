@@ -14,8 +14,11 @@
         var vm = this;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
-//        vm.payments.searchFromDate = null;
-//        vm.payments.searchToDate = null;
+
+        vm.paymentStatus = ['PAID', 'PAID_PARTIAL', 'NOT_PAID', 'CANCELLED', 'OTHERS'];
+        vm.searchPaymentStatusSelected = null;
+        vm.searchFromDate = null;
+        vm.searchToDate = null;
 
         vm.payments = [];
         vm.loadPage = loadPage;
@@ -30,6 +33,10 @@
 
         loadAll();
 
+        $scope.onSearch = function (){
+            loadAll ();
+        }
+
         function loadAll () {
 
             if($scope.clientData ==null || ($scope.clientData.client == null)){
@@ -41,8 +48,9 @@
                     sort: sort(),
                     param1 : 'building',
                     param2: $scope.clientData.building.id,
-                    searchFromDate : new Date(),
-                    searchToDate : new Date()
+                    searchFromDate : vm.searchFromDate,
+                    searchToDate : vm.searchToDate,
+                    searchPaymentStatus : vm.searchPaymentStatusSelected
                 }, onSuccess, onError);
                 function sort() {
                     var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
@@ -55,6 +63,7 @@
                 function onSuccess(data, headers) {
                     vm.links = ParseLinks.parse(headers('link'));
                     vm.totalItems = headers('X-Total-Count');
+                    vm.payments = [];
                     for (var i = 0; i < data.length; i++) {
                         vm.payments.push(data[i]);
                     }

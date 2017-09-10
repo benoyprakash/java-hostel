@@ -6,13 +6,14 @@
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
-
+    // public registration is disabled.
+    // by setting the ROLE as ADMIN, so only admin can access this
     function stateConfig($stateProvider) {
         $stateProvider.state('register', {
             parent: 'account',
             url: '/register',
             data: {
-                authorities: [],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'Registration'
             },
             views: {

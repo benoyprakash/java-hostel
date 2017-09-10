@@ -1,0 +1,4 @@
+{ "_id" : { "$oid" : "5907263520e5951e505de5c2" }, "_class" : "com.hostel.domain.Building", "name" : "Inn Fancy", "location" : "5907082420e5951e505de5c0", "address" : "Near JNI Stadium", "curr_status" : "ACTIVE" }
+{ "_id" : { "$oid" : "591809369a85451f60d7f51b" }, "_class" : "com.hostel.domain.Building", "name" : "Palace Residency", "location" : "5907082420e5951e505de5c0", "address" : "Same address", "curr_status" : "ACTIVE" }
+{ "_id" : { "$oid" : "59442e433dd82839b8334363" }, "_class" : "com.hostel.domain.Building", "name" : "Building1", "location" : "59442d7b3dd8283004b74e53", "address" : "Building1, Dashabhimani", "curr_status" : "ACTIVE" }
+{ "_id" : { "$oid" : "597b8e729671e93ae077d89b" }, "_class" : "com.hostel.domain.Building", "name" : "Test Client Location Building", "location" : "5907082420e5951e505de5c0", "address" : "Test Client Location Building" }

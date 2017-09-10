@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="searchFromDate" type="text" class="form-control" name="searchFromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.searchFromDate" is-open="vm.datePickerOpenStatus.searchFromDate"
+                            <input id="searchFromDate" type="text" class="form-control" name="searchFromDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.searchFromDate" is-open="vm.datePickerOpenStatus.searchFromDate"
                                    required/>
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.openCalendar('searchFromDate')"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="searchToDate" type="text" class="form-control" name="searchToDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.payments.searchToDate" is-open="vm.datePickerOpenStatus.searchToDate"
+                            <input id="searchToDate" type="text" class="form-control" name="searchToDate" uib-datepicker-popup="{{dateformat}}" ng-model="vm.searchToDate" is-open="vm.datePickerOpenStatus.searchToDate"
                                    required/>
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.openCalendar('searchToDate')"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -40,10 +40,16 @@
                         <label class="control-label" >Payment Status</label>
                     </div>
                     <div class="col-xs-4">
-                        <select class="form-control" ng-model="">
+                        <select class="form-control" ng-model="vm.searchPaymentStatusSelected" ng-options="k for k in vm.paymentStatus">
                         </select>
                     </div>
                     <div class="col-xs-4">
+                        <button class="btn btn-primary"  ng-click="onSearch()">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <span >
+                                Search
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>

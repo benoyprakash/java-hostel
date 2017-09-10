@@ -32,7 +32,7 @@ public interface PaymentsService {
      */
     Page<PaymentsDTO> findAll(Pageable pageable);
 
-    Page<PaymentsDTO> findAllByBuildingAndDateFilter(Pageable pageable, String buildingId, LocalDate searchFromDate, LocalDate searchToDate);
+    Page<PaymentsDTO> findAllByBuildingAndDateFilter(Pageable pageable, String buildingId, LocalDate searchFromDate, LocalDate searchToDate, PaymentStatus searchPaymentStatus);
 
     /**
      *  Get the "id" payments.

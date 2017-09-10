@@ -24,10 +24,10 @@ spring:
             uri: mongodb://localhost:27017
             database: hostel
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.gmail.com
+        port: 465
+        username: innfancy@gmail.com
+        password: palacefancy
     thymeleaf:
         cache: true
 

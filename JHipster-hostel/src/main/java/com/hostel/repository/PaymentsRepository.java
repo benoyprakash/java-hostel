@@ -21,7 +21,7 @@ import java.util.List;
 @Repository
 public interface PaymentsRepository extends MongoRepository<Payments,String> {
 
-    public Page<Payments> findByBuildingAndPaymentFromGreaterThanEqualAndPaymentToLessThanEqual(Pageable page, String buildingId, LocalDate searchFromDate, LocalDate searchToDate);
+    public Page<Payments> findByBuildingAndPaymentFromGreaterThanEqualAndPaymentToLessThanEqualAndPaymentStatusIn(Pageable page, String buildingId, LocalDate searchFromDate, LocalDate searchToDate, Collection<PaymentStatus> statusValues);
 
     public List<Payments> findByCustomerAndRoomAndPayentAgainstAndPaymentStatusIn(String customer, String room, PaymentAgainstType type, Collection<PaymentStatus> statusValues);
 

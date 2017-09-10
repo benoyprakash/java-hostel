@@ -216,8 +216,21 @@ public class UserService {
         return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
     }
 
-    public Page<UserDTO> getAllManagedUsers(Pageable pageable, String clientId) {
-        return userRepository.findAllByClientId(pageable, clientId).map(UserDTO::new);
+    public Page<UserDTO> getAllManagedUsers(Pageable pageable, String clientId, String dataOfRole) {
+        if(dataOfRole != null && !dataOfRole.trim().equalsIgnoreCase("")){
+            if(dataOfRole.equalsIgnoreCase("customer")){
+                return userRepository.findAllByClientIdAndAuthoritiesNameIn(pageable, clientId, Constants.USER_ROLE_CUSTOMER).map(UserDTO::new);
+            } else if(dataOfRole.equalsIgnoreCase("manager")){
+                return userRepository.findAllByClientIdAndAuthoritiesNameIn(pageable, clientId, Constants.USER_ROLE_MANAGER).map(UserDTO::new);
+            } else if(dataOfRole.equalsIgnoreCase("staff")){
+                return userRepository.findAllByClientIdAndAuthoritiesNameIn(pageable, clientId, Constants.USER_ROLE_STAFF).map(UserDTO::new);
+            } else if(dataOfRole.equalsIgnoreCase("all")){
+                return userRepository.findAllByClientId(pageable, clientId).map(UserDTO::new);
+            }
+        } else {
+            return userRepository.findAllByClientIdAndAuthoritiesNameIn(pageable, clientId, Constants.USER_ROLE_CUSTOMER).map(UserDTO::new);
+        }
+        return null;
     }
 
     public Page<UserDTO> getAllManagedCustomers(Pageable pageable, String clientId) {

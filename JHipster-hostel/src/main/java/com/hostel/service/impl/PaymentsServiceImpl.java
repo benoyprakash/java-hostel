@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -97,13 +98,29 @@ public class PaymentsServiceImpl implements PaymentsService{
 
     @Override
     public Page<PaymentsDTO> findAllByBuildingAndDateFilter(Pageable pageable, String buildingId, LocalDate searchFromDate,
-                                                            LocalDate searchToDate) {
+                                                            LocalDate searchToDate, PaymentStatus searchPaymentStatus) {
         log.debug("Request to get all Payments");
+        ArrayList<PaymentStatus> searchPaymentStatusArray = new ArrayList<PaymentStatus>();
         if(searchFromDate == null || searchToDate == null){
-            searchFromDate = LocalDate.now().minusDays(90);
-            searchToDate = LocalDate.now().plusDays(90);
+            searchFromDate = LocalDate.now().minusDays(30);
+            searchToDate = LocalDate.now().plusDays(30);
         }
-        Page<PaymentsDTO> payments = paymentsRepository.findByBuildingAndPaymentFromGreaterThanEqualAndPaymentToLessThanEqual(pageable, buildingId, searchFromDate, searchToDate)
+        if(searchFromDate == null && searchToDate != null){
+            searchFromDate = searchToDate.minusDays(30);
+        }
+        if(searchFromDate != null && searchToDate == null){
+            searchToDate = searchFromDate.plusDays(30);
+        }
+
+        if(searchPaymentStatus == null){
+            searchPaymentStatusArray.add(PaymentStatus.NOT_PAID);
+        } else {
+            searchPaymentStatusArray.add(searchPaymentStatus);
+        }
+
+        Page<PaymentsDTO> payments =
+            paymentsRepository.findByBuildingAndPaymentFromGreaterThanEqualAndPaymentToLessThanEqualAndPaymentStatusIn(pageable,
+                buildingId, searchFromDate, searchToDate, searchPaymentStatusArray)
             .map(paymentsMapper::toDto);
 
         for(PaymentsDTO dto : payments.getContent()){

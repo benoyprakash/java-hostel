@@ -29,10 +29,10 @@ spring:
             uri: mongodb://localhost:27017
             database: hostel
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.gmail.com
+        port: 465
+        username: innfancy@gmail.com
+        password: palacefancy
     messages:
         cache-seconds: 1
     thymeleaf:
@@ -80,7 +80,7 @@ jhipster:
             # security key (this key should be unique for your application, and kept secret)
             key: 835442a139a1920f0f6e8b684ab797810f5ec470
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: hostel@localhost
+        from: innfancy@gmail.com
         base-url: http://127.0.0.1:8080
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true

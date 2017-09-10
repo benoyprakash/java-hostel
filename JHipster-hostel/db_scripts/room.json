@@ -1,0 +1,18 @@
+{ "_id" : { "$oid" : "591821de9a854521108de0f9" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 101 -A1", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "591896b29a854517a01ae158" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 102 -A2", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "591896c69a854517a01ae159" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 103 -A3", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "591a003f9a85450e245417f8" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 104 - A4", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "594430673dd82839b8334364" }, "_class" : "com.hostel.domain.Room", "room_name" : "R1", "floor" : "F1", "building" : "59442e433dd82839b8334363" }
+{ "_id" : { "$oid" : "5973a3619671e905dc1e40cd" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 105 -A5", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "5973a38d9671e905dc1e40ce" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 106 -A6", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "5973a39c9671e905dc1e40cf" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 107 -A7", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "5973a3ad9671e905dc1e40d0" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 108 -A8", "floor" : "1", "building" : "5907263520e5951e505de5c2" }
+{ "_id" : { "$oid" : "597641ab9671e90a981e6b1e" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 101 -A1", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "597641bf9671e90a981e6b1f" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 102 -A2", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "5976421e9a85451cf402286d" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 103 -A3", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "5976423c9a85451cf4022870" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 104 -A4", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "597642549a85451cf4022873" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 106 -A6", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "5976426e9a85451cf4022876" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 107 -A7", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "597642819a85451cf4022879" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 108 -A8", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "5976428e9a85451cf402287c" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 109 -A9", "floor" : "1", "building" : "591809369a85451f60d7f51b" }
+{ "_id" : { "$oid" : "5988b6ef8b258412a83f91af" }, "_class" : "com.hostel.domain.Room", "room_name" : "Room 201 -B1", "floor" : "2", "building" : "5907263520e5951e505de5c2" }

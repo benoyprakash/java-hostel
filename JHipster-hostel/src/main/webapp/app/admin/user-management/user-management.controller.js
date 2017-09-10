@@ -36,7 +36,7 @@
         vm.dataOf = null;
         vm.dataOfSelected = 'CUSTOMER';
 
-        if($localStorage.data && $localStorage.data.user){
+        if($localStorage.data != undefined && $localStorage.data != null && $localStorage.data.user != undefined && $localStorage.data.user != null){
             if($localStorage.data.user.authorities && $localStorage.data.user.authorities.indexOf('ROLE_CUSTOMER') >= 0){
                 vm.showRoleChanger = false;
             } else {
@@ -72,19 +72,19 @@
             } else{
                 if(vm.dataOfSelected == null ||vm.dataOfSelected === "CUSTOMER"){
                     vm.dataOf = 'customer';
-                } else {
-                    if(vm.dataOfSelected == 'MANAGER' || vm.dataOfSelected == 'ALL'){
-                        vm.dataOf = 'clients';
-                    } else {
-                        vm.dataOf = 'customer';
-                    }
-                }
+                } else if (vm.dataOfSelected == 'MANAGER'){
+                    vm.dataOf = 'manager'
+                } else if (vm.dataOfSelected == 'STAFF'){
+                  vm.dataOf = 'staff'
+              }
+
                 User.query({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort(),
-                    clients: vm.dataOf,
-                    idx: $scope.clientData.client.id
+                    clients: 'clients',
+                    idx: $scope.clientData.client.id,
+                    role:vm.dataOf
                 }, onSuccess, onError);
             }
         }

@@ -1,0 +1,4 @@
+{ "_id" : "ROLE_ADMIN", "_class" : "com.hostel.domain.Authority" }
+{ "_id" : "ROLE_MANAGER", "_class" : "com.hostel.domain.Authority" }
+{ "_id" : "ROLE_STAFF", "_class" : "com.hostel.domain.Authority" }
+{ "_id" : "ROLE_CUSTOMER", "_class" : "com.hostel.domain.Authority" }
